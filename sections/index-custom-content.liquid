@@ -1,0 +1,512 @@
+<div class="container">
+	{% if section.settings.title.size > 0 %}
+		<h2 class="section_heading">{{ section.settings.title | escape }}</h2>
+	{% endif %}
+
+	<div class="row">
+
+		{% for block in section.blocks %}
+			{%- assign block_width = 'col-xs-12' -%}
+
+			{% case block.settings.width %}
+				{% when '25%' %}
+					{%- assign block_width = 'col-xs-3' -%}
+					{%- assign img_size = '270x270' -%}
+				{% when '33%' %}
+					{%- assign block_width = 'col-xs-4' -%}
+					{%- assign img_size = '370x370' -%}
+				{% when '50%' %}
+					{%- assign block_width = 'col-xs-6' -%}
+					{%- assign img_size = '570x270' -%}
+				{% when '66%' %}
+					{%- assign block_width = 'col-xs-8' -%}
+					{%- assign img_size = '770x370' -%}
+				{% when '75%' %}
+					{%- assign block_width = 'col-xs-9' -%}
+					{%- assign img_size = '870x270' -%}
+				{% when '100%' %}
+					{% comment %}{%- assign block_width = 'col-xs-12' -%}{% endcomment %}
+					{%- assign img_size = '1170x270' -%}
+			{% endcase %}
+
+			<div class="{{ block_width }} col_item {% cycle 'step2': 'item_2_1', '' %}">
+				<div class="custom_content__item item_{{ block.type }}">
+					{% case block.type %}
+						{% when 'image' %}
+							{% if block.settings.image.size > 0 %}
+								<img src="{{ block.settings.image | img_url: img_size, crop: block.settings.img_alignment }}" alt="{{ block.settings.image.alt }}">
+							{% else %}
+								<div class="img_placeholder__wrap">
+									{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+
+						{% when 'text' %}
+							<div class="item_text item_text__{{ block.settings.align_text }}">
+								{% if block.settings.title.size > 0 %}
+									<h4 class="item_text__title">{{ block.settings.title | escape }}</h4>
+								{% endif %}
+
+								{% if block.settings.text.size > 0 %}
+									<div class="item_text__content">{{ block.settings.text }}</div>
+								{% endif %}
+							</div>
+
+						{% when 'video' %}
+							<div class="item_video">
+								{% if block.settings.video_url.size > 0 %}
+									<div class="item_video__wrap">
+										<iframe class="item_video__player" src="//www.youtube.com/embed/{{ block.settings.video_url | slice: -11, 11 }}?vq=720" width="1920" height="1080" allowfullscreen></iframe>
+									</div>
+								{% endif %}
+							</div>
+
+						{% when 'product' %}
+							{%- assign product = all_products[block.settings.product] -%}
+
+							<div class="product_listing__main">
+								{% if product.id.size > 0 %}
+									{% include 'product-listing-item', img_size: img_size, img_alignment: 'center' %}
+								{% else %}
+									<div class="product_item">
+										<div class="product_wrapper">
+											{% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+											<div class="product_img">
+												<div class="img_placeholder__wrap">
+													{{ 'product-' | append: current | placeholder_svg_tag: 'img_placeholder' }}
+												</div>
+											</div>
+
+											<p class="product_name">Product name</p>
+
+											<p class="product_price">
+												<span class="money">$99.00</span>
+											</p>
+										</div>
+									</div>
+								{% endif %}
+							</div>
+
+						{% when 'collection' %}
+							{%- assign collection = collections[block.settings.collection] -%}
+
+							<div class="collection_listing__main">
+								<div class="collection_item">
+									{% if collection.id.size > 0 %}
+										<a href="{{ collection.url }}">
+											<div class="layer_1 collection_img">
+												{% if collection.image %}
+													<img src="{{ collection | img_url: img_size, crop: 'center' }}" alt="{{ collection.title }}">
+
+												{% elsif collection.products.first %}
+													<img src="{{ collection.products.first | img_url: img_size, crop: 'center' }}" alt="{{ collection.title }}">
+
+												{% else %}
+													<div class="img_placeholder__wrap">
+														{% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+														{{ 'collection-' | append: current | placeholder_svg_tag: 'img_placeholder' }}
+													</div>
+												{% endif %}
+											</div>
+
+											<div class="layer_2">
+												<span class="collection_title">{{ collection.title }}</span>
+
+												<span class="collection_products">{{ collection.products_count }} products</span>
+											</div>
+										</a>
+									{% else %}
+										<div class="layer_1 collection_img">
+											<div class="img_placeholder__wrap">
+												{% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+												{{ 'collection-' | append: current | placeholder_svg_tag: 'img_placeholder' }}
+											</div>
+										</div>
+
+										<div class="layer_2">
+											<span class="collection_title">Collection</span>
+
+											<span class="collection_products">100 products</span>
+										</div>
+									{% endif %}
+								</div>
+							</div>
+
+						{% when 'html' %}
+							{% if block.settings.code.size > 0 %}
+								{{ block.settings.code }}
+							{% endif %}
+
+					{% endcase %}
+				</div>
+			</div>
+
+		{% endfor %}
+
+	</div>
+
+</div>
+
+{% schema %}
+{
+	"name": "Custom content",
+	"class": "section section_homepage section_custom-content",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Custom content"
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"blocks": [
+		// IMAGE //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "image",
+			"name": "Image",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "select",
+					"id": "width",
+					"label": "Container width",
+					"default": "50%",
+					"options": [
+						{
+							"value": "25%",
+							"label": "25%"
+						},
+						{
+							"value": "33%",
+							"label": "33%"
+						},
+						{
+							"value": "50%",
+							"label": "50%"
+						},
+						{
+							"value": "66%",
+							"label": "66%"
+						},
+						{
+							"value": "75%",
+							"label": "75%"
+						},
+						{
+							"value": "100%",
+							"label": "100%"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "img_alignment",
+					"label": "Image alignment",
+					"options": [
+						{
+							"value": "top",
+							"label": "Top"
+						},
+						{
+							"value": "center",
+							"label": "Middle"
+						},
+						{
+							"value": "bottom",
+							"label": "Bottom"
+						}
+					]
+				}
+			]
+		},
+
+
+		// TEXT ///////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "text",
+			"name": "Text",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Talk about your brand"
+				},
+				{
+					"type": "richtext",
+					"id": "text",
+					"label": "Text",
+					"default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+				},
+				{
+					"type": "select",
+					"id": "width",
+					"label": "Container width",
+					"default": "50%",
+					"options": [
+						{
+							"value": "25%",
+							"label": "25%"
+						},
+						{
+							"value": "33%",
+							"label": "33%"
+						},
+						{
+							"value": "50%",
+							"label": "50%"
+						},
+						{
+							"value": "66%",
+							"label": "66%"
+						},
+						{
+							"value": "75%",
+							"label": "75%"
+						},
+						{
+							"value": "100%",
+							"label": "100%"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "align_text",
+					"label": "Text alignment",
+					"default": "left",
+					"options": [
+						{"value": "left", "label": "Left"},
+						{"value": "center", "label": "Centered"},
+						{"value": "right", "label": "Right"}
+					]
+				}
+			]
+		},
+
+
+		// VIDEO //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "video",
+			"name": "Video",
+			"settings": [
+				{
+					"type": "text",
+					"id": "video_url",
+					"label": "YouTube video url",
+					"default": "//www.youtube.com/watch?v=LGb3j1CyH0k"
+				},
+				{
+					"type": "select",
+					"id": "width",
+					"label": "Container width",
+					"default": "100%",
+					"options": [
+						{
+							"value": "25%",
+							"label": "25%"
+						},
+						{
+							"value": "33%",
+							"label": "33%"
+						},
+						{
+							"value": "50%",
+							"label": "50%"
+						},
+						{
+							"value": "66%",
+							"label": "66%"
+						},
+						{
+							"value": "75%",
+							"label": "75%"
+						},
+						{
+							"value": "100%",
+							"label": "100%"
+						}
+					]
+				}
+			]
+		},
+
+
+		// PRODUCT ////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "product",
+			"name": "Product",
+			"settings": [
+				{
+					"type": "product",
+					"id": "product",
+					"label": "Product"
+				},
+				{
+					"type": "select",
+					"id": "width",
+					"label": "Container width",
+					"default": "50%",
+					"options": [
+						{
+							"value": "25%",
+							"label": "25%"
+						},
+						{
+							"value": "33%",
+							"label": "33%"
+						},
+						{
+							"value": "50%",
+							"label": "50%"
+						},
+						{
+							"value": "66%",
+							"label": "66%"
+						},
+						{
+							"value": "75%",
+							"label": "75%"
+						},
+						{
+							"value": "100%",
+							"label": "100%"
+						}
+					]
+				}
+			]
+		},
+
+
+		// COLLECTION /////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "collection",
+			"name": "Collection",
+			"settings": [
+				{
+					"type": "collection",
+					"id": "collection",
+					"label": "Collection"
+				},
+				{
+					"type": "select",
+					"id": "width",
+					"label": "Container width",
+					"default": "50%",
+					"options": [
+						{
+							"value": "25%",
+							"label": "25%"
+						},
+						{
+							"value": "33%",
+							"label": "33%"
+						},
+						{
+							"value": "50%",
+							"label": "50%"
+						},
+						{
+							"value": "66%",
+							"label": "66%"
+						},
+						{
+							"value": "75%",
+							"label": "75%"
+						},
+						{
+							"value": "100%",
+							"label": "100%"
+						}
+					]
+				}
+			]
+		},
+
+
+		// CUSTOM HTML ////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "html",
+			"name": "Custom HTML",
+			"settings": [
+				{
+					"type": "textarea",
+					"id": "code",
+					"label": "HTML"
+				},
+				{
+					"type": "select",
+					"id": "width",
+					"label": "Container width",
+					"default": "50%",
+					"options": [
+						{
+							"value": "25%",
+							"label": "25%"
+						},
+						{
+							"value": "33%",
+							"label": "33%"
+						},
+						{
+							"value": "50%",
+							"label": "50%"
+						},
+						{
+							"value": "66%",
+							"label": "66%"
+						},
+						{
+							"value": "75%",
+							"label": "75%"
+						},
+						{
+							"value": "100%",
+							"label": "100%"
+						}
+					]
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Custom content",
+			"category": "Advanced layout",
+			"blocks": [
+				{
+					"type": "image"
+				},
+				{
+					"type": "text"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,445 @@
+{% case section.settings.img_size %}
+	{% when 'xsmall' %}{%- assign img_size = '170x78' -%}
+	{% when 'small'  %}{%- assign img_size = '170x119' -%}
+	{% when 'medium' %}{%- assign img_size = '170x124' -%}
+	{% when 'large' %}{%- assign img_size = '170x132' -%}
+{% endcase %}
+
+{%- assign icon_snippet = false -%}
+{% for block in section.blocks %}
+	{% if block.type contains 'icon' %}
+		{%- assign icon_snippet = true -%}
+	{% endif %}
+{% endfor %}
+
+{% if icon_snippet %}
+	{% include 'svg-icon' %}
+{% endif %}
+
+{% if section.blocks.size > 6 %}
+	{%- assign carousel = true -%}
+{% else %}
+	{%- assign carousel = false -%}
+{% endif %}	
+
+<div class="container">
+	{% if section.settings.title.size > 0 %}
+		<h2 class="section_heading">{{ section.settings.title | escape }}</h2>
+	{% endif %}
+
+	<div class="row">
+
+		{% if carousel %}
+			<div class="swiper-container logo_swiper" id="logo_swiper__{{ section.id }}">
+				<div class="swiper-wrapper">
+		{% endif %}
+
+		{% for block in section.blocks %}
+			{% case block.type %}
+				{% when 'logo_image' %}
+					<div class="col-xs-4 col-sm-2 {% cycle 'step6': 'item_6_1', '', '', '', '', '' %} {% cycle 'step3': 'item_3_1', '', '' %} {% cycle 'step2': 'item_2_1', '' %} {% if carousel %}swiper-slide{% endif %}">
+						<div class="logo_item item_image" {% if section.settings.item_bg_color.size > 0 %} style="background-color: {{ section.settings.item_bg_color }};"{% endif %}>
+							{% if block.settings.link.size > 0 %}
+								<a href="{{ block.settings.link }}" class="logo-bar__link">
+							{% endif %}
+
+							{% if block.settings.image.size > 0 %}
+								<img src="{{ block.settings.image | img_url: img_size, crop: section.settings.img_alignment }}" alt="{{ section.settings.image.alt }}">
+							{% else %}
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.img_size }}">
+									{{ 'logo' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+
+							{% if block.settings.link.size > 0 %}
+								</a>
+							{% endif %}
+						</div>
+					</div>
+				{% when 'icon' %} 
+					<div class="col-xs-4 col-sm-2 {% cycle 'step6': 'item_6_1', '', '', '', '', '' %} {% cycle 'step3': 'item_3_1', '', '' %} {% cycle 'step2': 'item_2_1', '' %} {% if carousel %}swiper-slide{% endif %}">
+						<div class="logo_item item_icon {% if section.settings.inline %}inline{% endif %}"> 
+							<div class="img_placeholder__wrap img_placeholder__{{ section.settings.img_size }}" {% if section.settings.item_bg_color.size > 0 %} style="background-color: {{ section.settings.item_bg_color }};"{% endif %}> 
+								{% if block.settings.link.size > 0 %}
+									<a href="{{ block.settings.link }}" class="logo-bar__link logo_wrap">
+								{% else %}
+									<div class="logo_wrap">
+								{% endif %}
+										
+								{% capture icon_svg %}{{ block.settings.icon }}{% endcapture %} 
+								<div class="icon">
+									{% if icon_svg == 'icon_volume' %}
+										{{ icon_volume }}
+									{% elsif icon_svg == 'icon_tablet' %}		
+										{{ icon_tablet }}
+									{% elsif icon_svg == 'icon_camera' %}		
+										{{ icon_camera }}
+									{% elsif icon_svg == 'icon_desktop' %}		
+										{{ icon_desktop }}
+									{% elsif icon_svg == 'icon_gamepad' %}		
+										{{ icon_gamepad }}
+									{% elsif icon_svg == 'icon_phone' %}		
+										{{ icon_phone }}
+									{% elsif icon_svg == 'icon_couch' %}		
+										{{ icon_couch }}
+									{% elsif icon_svg == 'icon_bed' %}		
+										{{ icon_bed }}
+									{% elsif icon_svg == 'icon_chair' %}		
+										{{ icon_chair }}
+									{% elsif icon_svg == 'icon_bathtub' %}		
+										{{ icon_bathtub }}
+									{% elsif icon_svg == 'icon_drawers' %}		
+										{{ icon_drawers }}
+									{% elsif icon_svg == 'icon_lampshade' %}		
+										{{ icon_lampshade }}
+									{% elsif icon_svg == 'icon_star' %}		
+										{{ icon_star }}
+									{% elsif icon_svg == 'icon_envelope' %}		
+										{{ icon_envelope }}
+									{% elsif icon_svg == 'icon_license' %}		
+										{{ icon_license }}
+									{% elsif icon_svg == 'icon_users' %}		
+										{{ icon_users }}
+									{% elsif icon_svg == 'icon_store' %}		
+										{{ icon_store }}
+									{% elsif icon_svg == 'icon_wallet' %}		
+										{{ icon_wallet }}
+									{% elsif icon_svg == 'icon_map-marker' %}		
+										{{ icon_map-marker }}
+									{% elsif icon_svg == 'icon_bubbles' %}		
+										{{ icon_bubbles }}
+									{% endif %}
+								</div> 
+
+								{% if block.settings.text.size > 0 %}
+									<p>{{ block.settings.text }}</p>
+								{% endif %}
+									
+								{% if block.settings.link.size > 0 %}
+									</a>
+								{% else %}
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+			{% endcase %}
+		{% endfor %}
+
+		{% if carousel %}
+				</div>
+			</div>
+
+			<div id="swiper_prev_{{ section.id }}" class="swiper_btn swiper_btn__prev"></div>
+			<div id="swiper_next_{{ section.id }}" class="swiper_btn swiper_btn__next"></div>
+		{% endif %}
+	</div>
+</div>
+
+{% if section.settings.section_bg_color.size > 0 or section.settings.item_color.size > 0 %}
+<style>
+	{% if section.settings.section_bg_color.size > 0 and section.settings.section_bg_color != 'rgba(0,0,0,0)' %}
+		#shopify-section-{{ section.id }} {background-color: {{ section.settings.section_bg_color }};}
+		#shopify-section-{{ section.id }} {padding-bottom: 30px;}
+	{% endif %}
+
+	{% if section.settings.item_color.size > 0 and section.settings.item_color != 'rgba(0,0,0,0)' %}
+		#shopify-section-{{ section.id }} .item_icon svg {fill: {{ section.settings.item_color }};}
+		#shopify-section-{{ section.id }} .item_icon p {color: {{ section.settings.item_color }};}
+	{% endif %}
+</style>
+{% endif %}
+
+{% schema %}
+{
+	"name": "Logo list",
+	"class": "section section_homepage section_logo-list",
+	"max_blocks": 12,
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Logo list"
+		},
+		{
+			"type": "select",
+			"id": "img_size",
+			"label": "Image size",
+			"options": [
+				{
+					"value": "xsmall",
+					"label": "Extra Small (170x78)"
+				},
+				{
+					"value": "small",
+					"label": "Small (170x119)"
+				},
+				{
+					"value": "medium",
+					"label": "Medium (170x124)"
+				},
+				{
+					"value": "large",
+					"label": "Large (170x132)"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "img_alignment",
+			"label": "Image alignment",
+			"options": [
+				{
+					"value": "top",
+					"label": "Top"
+				},
+				{
+					"value": "center",
+					"label": "Middle"
+				},
+				{
+					"value": "bottom",
+					"label": "Bottom"
+				}
+			]
+		},
+		{
+			"type": "color",
+			"id": "section_bg_color",
+			"label": "Background color"
+		},
+		{
+			"type": "color",
+			"id": "item_bg_color",
+			"label": "Item background color"
+		},
+		{
+			"type": "checkbox",
+			"id": "inline",
+			"label": "Inscription in a row",
+			"default": false,
+			"info": "Only for icon type"
+		},
+		{
+			"type": "color",
+			"id": "item_color",
+			"label": "Item text color",
+			"info": "Only for icon type"
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"blocks": [
+		{
+			"type": "logo_image",
+			"name": "Logo",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "url",
+					"id": "link",
+					"label": "Link",
+					"info": "Optional"
+				}
+			]
+		},
+		{
+			"type": "icon",
+			"name": "Icon",
+			"settings": [
+				{
+					"type": "select",
+					"id": "icon",
+					"label": "Icon",
+					"options": [
+						{
+							"value": "icon_volume",
+							"label": "Volume"
+						},
+						{
+							"value": "icon_tablet",
+							"label": "Tablet"
+						},
+						{
+							"value": "icon_camera",
+							"label": "Camera"
+						},
+						{
+							"value": "icon_desktop",
+							"label": "Desktop"
+						},
+						{
+							"value": "icon_gamepad",
+							"label": "Gamepad"
+						},
+						{
+							"value": "icon_phone",
+							"label": "Phone"
+						},
+						{
+							"value": "icon_couch",
+							"label": "Couch"
+						},
+						{
+							"value": "icon_bed",
+							"label": "Bed"
+						},
+						{
+							"value": "icon_chair",
+							"label": "Chair"
+						},
+						{
+							"value": "icon_bathtub",
+							"label": "Bathtub"
+						},
+						{
+							"value": "icon_drawers",
+							"label": "Drawers"
+						},
+						{
+							"value": "icon_lampshade",
+							"label": "Lampshade"
+						},
+						{
+							"value": "icon_star",
+							"label": "Star"
+						},
+						{
+							"value": "icon_envelope",
+							"label": "Envelope"
+						},
+						{
+							"value": "icon_license",
+							"label": "License"
+						},
+						{
+							"value": "icon_users",
+							"label": "Users"
+						},
+						{
+							"value": "icon_store",
+							"label": "Store"
+						},
+						{
+							"value": "icon_wallet",
+							"label": "Wallet"
+						},
+						{
+							"value": "icon_map-marker",
+							"label": "Map-marker"
+						},
+						{
+							"value": "icon_bubbles",
+							"label": "Bubbles"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "text",
+					"label": "Text"
+				},
+				{
+					"type": "url",
+					"id": "link",
+					"label": "Link",
+					"info": "Optional"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Logo list",
+			"category": "Image",
+			"blocks": [
+				{
+					"type": "logo_image"
+				},
+				{
+					"type": "logo_image"
+				},
+				{
+					"type": "logo_image"
+				},
+				{
+					"type": "logo_image"
+				},
+				{
+					"type": "logo_image"
+				},
+				{
+					"type": "logo_image"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+
+{% javascript %}
+jQuery(document).ready(function($) {
+	$('.logo_swiper').each(function(i) {
+
+		var sliderId = '#' + $(this).attr('id');
+		var sliderVar = $(this).attr('id');
+		
+		var sliderPrev = '#swiper_prev_' + sliderVar.replace('logo_swiper__', '');
+		var sliderNext = '#swiper_next_' + sliderVar.replace('logo_swiper__', '');
+		
+		var swiperVar = new Swiper( sliderId, {
+			effect: 'slide',
+			loop: true,
+			prevButton: sliderPrev,
+			nextButton: sliderNext,
+			slidesPerView: 6,
+			breakpoints: {
+				1199: {
+					slidesPerView: 5
+				},
+				992: {
+					slidesPerView: 4
+				},
+				768: {
+					slidesPerView: 3
+				},
+				480: {
+					slidesPerView: 2
+				}
+			},
+
+		});
+
+		$(window).on('load', function() {
+			swiperVar.onResize(); // updating swiper after loading
+		});
+
+	});
+
+});
+{% endjavascript %}
+

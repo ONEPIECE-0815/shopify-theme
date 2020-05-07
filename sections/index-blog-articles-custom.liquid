@@ -1,0 +1,174 @@
+{%- assign img_size_sm = '170x99' -%}
+{%- assign img_size_lg = '570x330' -%}
+
+<div class="section_bg" {% if section.settings.bg_color.size > 0 and section.settings.bg_color != 'rgba(0,0,0,0)' %} style="background-color: {{ section.settings.bg_color }}"{% endif %}>
+	<div class="container"> 
+		{% if section.settings.section_title.size > 0 %}
+			<h2 class="section_heading blog_heading {% if section.settings.inverted %}inv_heading{% endif %}">{{ section.settings.section_title | escape }}</h2>
+		{% endif %}
+	
+		{%- assign section_blog = blogs[section.settings.section_blog] -%}
+	
+		{% unless section_blog.empty? %}
+			<div class="row">
+				<div class="col-sm-6 lg_article">
+					{% for article in section_blog.articles limit:1 %}
+						<div class="article_item article_large flexible_block">
+							<div class="layer_1">
+								{% if article.image %}
+									<div class="img_placeholder__wrap img_placeholder__large" style="background-image: url( {{ article.image.src | img_url: img_size_lg, crop: section.settings.img_alignment }} );"></div>
+								{% else %}
+									<div class="img_placeholder__wrap img_placeholder__large img_placeholder__empty"></div>
+								{% endif %}
+							</div>
+	
+							<div class="layer_2 {% if section.settings.inverted %}inverted{% endif %}">
+								<p class="article_date">
+									<span class="article_day">{{ article.published_at | date: '%d' }}</span>
+									{{ article.published_at | date: '%B' }}
+								</p>
+	
+								<p class="article_info">
+									{% if section.settings.blog_author %}<span>{{ article.author }}</span>{% endif %}
+									<span><time class="article_time" datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M' }}">{{ article.published_at | date: '%B %d, %Y' }}</time></span>
+								</p>
+	
+								<p class="article_title"><a href="{{ article.url }}">{{ article.title | truncatewords: 11 }}</a></p>
+	
+								<p class="article_content">
+									{{ article.content | strip_html | truncatewords: 30 }}						
+								</p>
+	
+								<a class="btn article_btn" href="{{ article.url }}">{{ 'blog.articles.read_more' | t }}</a>
+							</div>
+						</div>
+						{% cycle 'clear' : '', '' , '<div class="clearfix"></div>' %}
+					{% endfor %}
+				</div>
+				
+				<div class="col-sm-6 sm_article">
+					{% for article in section_blog.articles offset:1 limit:4 %}
+						<div class="article_item article_small flexible_block">
+							<div class="layer_1">
+								{% if article.image %}
+									<div class="img_placeholder__wrap img_placeholder__small" style="background-image: url( {{ article.image.src | img_url: img_size_sm, crop: section.settings.img_alignment }} );"></div>
+								{% else %}
+									<div class="img_placeholder__wrap img_placeholder__small img_placeholder__empty"></div>
+								{% endif %}
+							</div>
+	
+							<div class="layer_2 {% if section.settings.inverted %}inverted{% endif %}">
+	
+								<p class="article_info">
+									{% if section.settings.blog_author %}<span>{{ article.author }}</span>{% endif %}
+									<span><time class="article_time" datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M' }}">{{ article.published_at | date: '%B %d, %Y' }}</time></span>
+								</p>
+	
+								<p class="article_title"><a href="{{ article.url }}">{{ article.title | truncatewords: 11 }}</a></p>
+	
+							</div>
+						</div>
+						{% cycle 'clear' : '', '' , '<div class="clearfix"></div>' %}
+					{% endfor %}
+				</div>
+				
+			</div>
+		{% endunless %}
+	
+		{% if section.settings.show_view_all %}
+			<div class="view_all__wrap">
+				<a href="{{ section_blog.url }}" class="btn">{{ 'blog.articles.view_all' | t }}</a>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+
+{% schema %}
+{
+	"name": "Blog articles custom",
+	"class": "section section_homepage section_blog-articles-custom",
+	"settings": [
+		{
+			"type": "text",
+			"id": "section_title",
+			"label": "Heading",
+			"default": "Blog"
+		},
+		{
+			"type": "color",
+			"id": "bg_color",
+			"label": "Background color"
+		},
+		{
+			"type": "blog",
+			"id": "section_blog",
+			"label": "Blog"
+		},
+		{
+			"type": "select",
+			"id": "img_alignment",
+			"label": "Images alignment",
+			"options": [
+				{
+					"value": "top",
+					"label": "Top"
+				},
+				{
+					"value": "center",
+					"label": "Middle"
+				},
+				{
+					"value": "bottom",
+					"label": "Bottom"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "inverted",
+			"label": "Inverted text color"
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_author",
+			"label": "Show author"
+		},
+		{
+			"type": "checkbox",
+			"id": "show_view_all",
+			"label": "Show 'View all' button"
+		},
+		{
+        "type": "header",
+            "content": {
+    			"de": "BENÖTIGEN SIE WEITERE HILFE",
+                "en": "NEED MORE HELP?",
+                "es": "NECESITAS MÁS AYUDA?",
+                "fr": "BESOIN D'AIDE?",
+                "it": "SERVE ANCORA AIUTO?",
+                "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                "pt-BR": "NEED MORE HELP?"
+    		},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+            }
+        }
+	],
+	"presets": [
+		{
+			"name": "Blog articles custom",
+			"category": "Blog",
+			"settings": {
+				"section_blog": "News"
+			}
+		}
+	]
+}
+{% endschema %}

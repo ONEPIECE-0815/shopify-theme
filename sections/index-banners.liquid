@@ -1,0 +1,1493 @@
+<div class="container">
+	<div class="row">
+		{% for block in section.blocks %}
+			{% case block.type %}
+				{% when 'big_50' %}
+					{% case section.settings.section_height %}
+						{% when 'small'  %}{%- assign img_size = '570x494' -%}
+						{% when 'medium' %}{%- assign img_size = '570x540' -%}
+						{% when 'large'  %}{%- assign img_size = '570x577' -%}
+					{% endcase %}
+
+					<div class="col-sm-6 banner_{{ block.type }}">
+						<div class="banner_item">
+							{% if block.settings.item_img.size > 0 %}
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item_img | img_url: img_size, crop: 'center' }} );"></div>
+							{% else %}
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+									{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+							
+							<div class="banner_caption position_{{ block.settings.caption_position }} style_{{ block.settings.caption_style }}">  
+								<div class="caption_text">
+									{% if block.settings.item_subtitle.size > 0 %}
+										<h4>{{ block.settings.item_subtitle }}</h4>
+									{% endif %}
+
+									{% if block.settings.item_title.size > 0 %}
+										<h3 {% if settings.text-animation and block.settings.title_effect != 'none' %} class="title_animation" data-in-effect="{{ block.settings.title_effect }}" id="title_{{ section.id }}_{{ block.id }}"{% endif %}>{{ block.settings.item_title }}</h3>
+									{% endif %}
+
+									{% if block.settings.item_text.size > 0 %}
+										<p class="banner_text">{{ block.settings.item_text }}</p>
+									{% endif %}
+
+									{% if block.settings.item_link.size > 0 and block.settings.button_text.size > 0 %}
+										<a class="btn banner_btn" href="{{ block.settings.item_link }}">{{ block.settings.button_text }}</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+
+				{% when 'big_75' %}
+					{% case section.settings.section_height %}
+						{% when 'small'  %}{%- assign img_size = '870x494' -%}
+						{% when 'medium' %}{%- assign img_size = '870x540' -%}
+						{% when 'large'  %}{%- assign img_size = '870x577' -%}
+					{% endcase %}
+
+					<div class="col-sm-9 banner_{{ block.type }}">
+						<div class="banner_item">
+							{% if block.settings.item_img.size > 0 %}
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item_img | img_url: img_size, crop: 'center' }} );"></div>
+							{% else %}
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+									{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+
+							<div class="banner_caption position_{{ block.settings.caption_position }} style_{{ block.settings.caption_style }}">  
+								<div class="caption_text">
+									<div>
+										{% if block.settings.item_title.size > 0 %}
+											<h3 {% if settings.text-animation and block.settings.title_effect != 'none' %} class="title_animation" data-in-effect="{{ block.settings.title_effect }}" id="title_{{ section.id }}_{{ block.id }}"{% endif %}>{{ block.settings.item_title }}</h3>
+										{% endif %}
+
+										{% if block.settings.item_subtitle.size > 0 %}
+											<h4>{{ block.settings.item_subtitle }}</h4>
+										{% endif %}
+
+										{% if block.settings.item_text.size > 0 %}
+											<p class="banner_text">{{ block.settings.item_text }}</p>
+										{% endif %}
+									</div>
+
+									{% if block.settings.item_link.size > 0 and block.settings.button_text.size > 0 %}
+										<a class="btn banner_btn" href="{{ block.settings.item_link }}">{{ block.settings.button_text }}</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+
+				{% when 'big_75_3item' %}
+					<div class="col-sm-9 banner_{{ block.type }}">
+						<div class="banner_item banner_item_main">
+							{% if block.settings.item1_img.size > 0 %}
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item1_img | img_url: '870x381', crop: 'center' }} );"></div>
+							{% else %}
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+									{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+
+							<div class="banner_caption position_{{ block.settings.caption_position }}">  
+								<div class="caption_text">
+									<div class="timer">
+										<div class="countdown_timer" id="timer_{{ forloop.index }}_{{ section.id }}" data-day="{{ block.settings.countdown_date_day }}" data-month="{{ block.settings.countdown_date_month }}" data-year="{{ block.settings.countdown_date_year }}">
+											<p class="countdown_days">
+												<input class="days"><span>{{ 'layout.countdown.days' | t }}</span>
+											</p>
+											<p class="countdown_hours">
+												<input class="hour"><span>{{ 'layout.countdown.hours' | t }}</span>
+											</p>
+											<p class="countdown_minuts">
+												<input class="minute"><span>{{ 'layout.countdown.minutes' | t }}</span>
+											</p>
+											<p class="countdown_seconds">
+												<input class="second"><span>{{ 'layout.countdown.seconds' | t }}</span>
+											</p>
+										</div>
+									</div>
+
+									<div>
+										{% if block.settings.item1_title.size > 0 %}
+											<div {% if settings.text-animation and block.settings.title_effect != 'none' %} class="caption_header title_animation" data-in-effect="{{ block.settings.title_effect }}" id="title_{{ section.id }}_{{ block.id }}"{% else %} class="caption_header"{% endif %}>{{ block.settings.item1_title }}</div>
+										{% endif %}
+
+										{% if block.settings.item1_subtitle.size > 0 %}
+											<h4>{{ block.settings.item1_subtitle }}</h4>
+										{% endif %}
+									</div>
+
+									{% if block.settings.item1_link.size > 0 and block.settings.button1_text.size > 0 %}
+										<a class="btn banner_btn" href="{{ block.settings.item1_link }}">{{ block.settings.button1_text }}</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						
+						{% capture banner_small %}
+							<div class="banner_item banner_item_small">
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" ></div>
+								<div class="banner_caption position_{{ block.settings.caption_position }}">  
+									<a class="caption_text" href="{{ block.settings.item2_link }}">
+										<div>
+											{% if block.settings.item2_title.size > 0 %}
+												<div {% if settings.text-animation and block.settings.title_effect != 'none' %} class="caption_header title_animation" data-in-effect="{{ block.settings.title_effect }}" id="title_{{ section.id }}_{{ block.id }}"{% else %} class="caption_header"{% endif %}>{{ block.settings.item2_title }}</div>
+											{% endif %}
+
+											{% if block.settings.item2_subtitle.size > 0 %}
+												<h4>{{ block.settings.item2_subtitle }}</h4>
+											{% endif %}
+										</div>
+									</a>
+								</div>
+							</div>
+						{% endcapture %}
+
+						{% capture banner_medium %}
+							<div class="banner_item banner_item_medium {{ block.settings.caption_position }}">
+								<div class="banner_content">
+									{% if block.settings.item3_img.size > 0 %}
+										<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item3_img | img_url: '570x170', crop: 'center' }} );"></div>
+									{% else %}
+										<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+											{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+										</div>
+									{% endif %}
+
+									<div class="banner_caption position_{{ block.settings.caption_position }}">  
+										<a class="caption_text" href="{{ block.settings.item3_link }}">
+											<div>
+												{% if block.settings.item3_title.size > 0 %}
+													<div {% if settings.text-animation and block.settings.title_effect != 'none' %} class="caption_header title_animation" data-in-effect="{{ block.settings.title_effect }}" id="title_{{ section.id }}_{{ block.id }}"{% else %} class="caption_header"{% endif %}>{{ block.settings.item3_title }}</div>
+												{% endif %}
+
+												{% if block.settings.item3_subtitle.size > 0 %}
+													<h4>{{ block.settings.item3_subtitle }}</h4>
+												{% endif %}
+											</div>
+										</a>
+									</div>
+								</div>
+							</div>
+						{% endcapture %}
+
+						{% if block.settings.caption_position == 'left' %}
+							{{ banner_small }}
+							{{ banner_medium }}
+						{% else %}	
+							{{ banner_medium }}
+							{{ banner_small }}
+						{% endif %}
+					</div>
+
+
+				{% when 'two_big_50' %}
+					{% case section.settings.section_height %}
+						{% when 'small'  %}{%- assign img_size = '570x232' -%}
+						{% when 'medium' %}{%- assign img_size = '570x255' -%}
+						{% when 'large'  %}{%- assign img_size = '570x273' -%}
+					{% endcase %}
+
+					<div class="col-sm-6 banner_{{ block.type }}">
+						<div class="banner_item">
+							<div class="bammer_item_1">
+								{% if block.settings.item_img.size > 0 %}
+									<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item_img | img_url: img_size, crop: 'center' }} );"></div>
+								{% else %}
+									<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+										{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+									</div>
+								{% endif %}
+
+								<div class="banner_caption position_{{ block.settings.caption_position }} style_{{ block.settings.caption_style }}">  
+									<div class="caption_text">
+										<div>
+											{% if block.settings.item_subtitle.size > 0 %}
+												<h4>{{ block.settings.item_subtitle }}</h4>
+											{% endif %}
+
+											{% if block.settings.item_title.size > 0 %}
+												<h3 {% if settings.text-animation and block.settings.title_effect1 != 'none' %} class="title_animation" data-in-effect="{{ block.settings.title_effect1 }}" id="title_{{ section.id }}_{{ block.id }}_1"{% endif %}>{{ block.settings.item_title }}</h3>
+											{% endif %}
+										</div>
+
+										{% if block.settings.item_link.size > 0 and block.settings.item_button_text.size > 0 %}
+											<a class="btn banner_btn" href="{{ block.settings.item_link }}">{{ block.settings.item_button_text }}</a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+
+							<div class="bammer_item_2">
+								{% if block.settings.item2_img.size > 0 %}
+									<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item2_img | img_url: img_size, crop: 'center' }} );"></div>
+								{% else %}
+									<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+										{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+									</div>
+								{% endif %}
+
+								<div class="banner_caption position_{{ block.settings.caption_position }} style_{{ block.settings.caption_style }}">  
+									<div class="caption_text">
+										<div>
+											{% if block.settings.item2_subtitle.size > 0 %}
+												<h4>{{ block.settings.item2_subtitle }}</h4>
+											{% endif %}
+
+											{% if block.settings.item2_title.size > 0 %}
+												<h3 {% if settings.text-animation and block.settings.title_effect2 != 'none' %} class="title_animation" data-in-effect="{{ block.settings.title_effect2 }}" id="title_{{ section.id }}_{{ block.id }}_2"{% endif %}>{{ block.settings.item2_title }}</h3>
+											{% endif %}
+										</div>
+
+										{% if block.settings.item2_link.size > 0 and block.settings.item2_button_text.size > 0 %}
+											<a class="btn banner_btn" href="{{ block.settings.item2_link }}">{{ block.settings.item2_button_text }}</a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+				{% when 'two_small_25' %}
+					{% case section.settings.section_height %}
+						{% when 'small'  %}{%- assign img_size = '270x232' -%}
+						{% when 'medium' %}{%- assign img_size = '270x255' -%}
+						{% when 'large'  %}{%- assign img_size = '270x273' -%}
+					{% endcase %}
+
+					<div class="col-sm-3 banner_{{ block.type }}">
+						<div class="banner_item">
+							<div class="bammer_item_1">
+								{% if block.settings.item_img.size > 0 %}
+									<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item_img | img_url: img_size, crop: 'center' }} );"></div>
+								{% else %}
+									<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+										{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+									</div>
+								{% endif %}
+								
+								<a class="banner_caption" href="{{ block.settings.item_link }}">
+									<div class="caption_text">
+										{% if block.settings.item_text.size > 0 %}
+											<h4>{{ block.settings.item_text }}</h4>
+										{% endif %}
+									</div>
+								</a>
+							</div>
+
+							<div class="bammer_item_2">
+								{% if block.settings.item2_img.size > 0 %}
+									<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item2_img | img_url: img_size, crop: 'center' }} );"></div>
+								{% else %}
+									<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+										{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+									</div>
+								{% endif %}
+
+								<a class="banner_caption" href="{{ block.settings.item_link2 }}">
+									<div class="caption_text">
+										{% if block.settings.item_text2.size > 0 %}
+											<h4>{{ block.settings.item_text2 }}</h4>
+										{% endif %}
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+
+				{% when 'one_small_25' %}
+					{% case section.settings.section_height %}
+						{% when 'small'  %}{%- assign img_size = '270x494' -%}
+						{% when 'medium' %}{%- assign img_size = '270x540' -%}
+						{% when 'large'  %}{%- assign img_size = '270x577' -%}
+					{% endcase %}
+
+					<div class="col-sm-3 banner_{{ block.type }}">
+						<div class="banner_item">
+							{% if block.settings.item_img.size > 0 %}
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item_img | img_url: img_size, crop: 'center' }} );"></div>
+							{% else %}
+								<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+									{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+
+							<a href="{{ block.settings.item_link }}" class="banner_caption style_{{ block.settings.caption_style }}">
+								<div class="caption_text">
+									<div>
+										{% if block.settings.item_subtitle.size > 0 %}
+											<h4>{{ block.settings.item_subtitle }}</h4>
+										{% endif %}
+
+										{% if block.settings.item_title.size > 0 %}
+											<h3>{{ block.settings.item_title }}</h3>
+										{% endif %}
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
+				{% when 'menu' %}
+					{% case section.settings.section_height %}
+						{% when 'small'  %}
+							{% if block.settings.link_style == 'rarefied' %}
+								{%- assign link_limit = 7 -%}
+							{% else %}
+								{%- assign link_limit = 11 -%}
+							{% endif %}
+
+						{% when 'medium' %}
+							{% if block.settings.link_style == 'rarefied' %}
+								{%- assign link_limit = 8 -%}
+							{% else %}
+								{%- assign link_limit = 12 -%}
+							{% endif %}
+
+						{% when 'large'  %}
+							{% if block.settings.link_style == 'rarefied' %}
+								{%- assign link_limit = 9 -%}
+							{% else %}
+								{%- assign link_limit = 13 -%}
+							{% endif %}
+					{% endcase %}
+
+					<div class="col-sm-3 banner_{{ block.type }} menu_{{ section.settings.section_height }} style_{{ block.settings.link_style }}">
+						<div class="menu_wrap banner_menu_item">
+							<h4 class="linklist_title">{{ linklists[block.settings.links].title }}<span class="menu_trigger"><i class="fa fa-caret-down"></i></span></h4>
+							<ul>
+								{% for link in linklists[block.settings.links].links limit: link_limit %}
+									<li class="link_item">
+										<a class="linklist_link" href="{{ link.url }}">{{ link.title }}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+
+			{% endcase %}
+		{% endfor %}
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Banners",
+	"class": "section section_homepage section_banners",
+	"max_blocks": 4,
+	"settings": [
+		{
+			"type": "select",
+			"id": "section_height",
+			"label": "Section height",
+			"options": [
+				{
+					"label": "Small (494px)",
+					"value": "small"
+				},
+				{
+					"label": "Medium (540px)",
+					"value": "medium"
+				},
+				{
+					"label": "Large (577px)",
+					"value": "large"
+				}
+			]
+		},
+		{
+            "type": "header",
+            "content": {
+        			"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+        		},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"blocks": [
+
+		// BIG BANNER 50%  //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "big_50",
+			"name": "Big banner(50%)",
+			"limit": 2,
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "item_img",
+					"label": "Banner image"
+				},
+				{
+					"type": "select",
+					"id": "caption_position",
+					"label": "Caption position",
+					"options": [
+						{
+							"label": "Left",
+							"value": "left"
+						},
+						{
+							"label": "Right",
+							"value": "right"
+						},
+						{
+							"label": "Bottom",
+							"value": "bottom"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "item_subtitle",
+					"label": "Caption subtitle"
+				},
+				{
+					"type": "text",
+					"id": "item_title",
+					"label": "Caption title"
+				},
+				{
+					"type": "select",
+					"id": "title_effect",
+					"label": "Title effect",
+					"default": "none",
+					"info": "Before using, you need to enable animation in the general settings",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "RollIn",
+							"value": "rollIn"
+						},
+						{
+							"label": "Flip",
+							"value": "flip"
+						},
+						{
+							"label": "Flash",
+							"value": "flash"
+						},
+						{
+							"label": "Pulse",
+							"value": "pulse"
+						},
+						{
+							"label": "Swing",
+							"value": "swing"
+						},
+						{
+							"label": "Tada",
+							"value": "tada"
+						},
+						{
+							"label": "Wobble",
+							"value": "wobble"
+						},
+						{
+							"label": "Fade In",
+							"value": "fadeIn"
+						},
+						{
+							"label": "Rotate In",
+							"value": "rotateIn"
+						},
+						{
+							"label": "Shake",
+							"value": "shake"
+						},
+						{
+							"label": "Bounce",
+							"value": "bounce"
+						},
+						{
+							"label": "Bounce In Up",
+							"value": "bounceInUp"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "item_text",
+					"label": "Caption text"
+				},
+				{
+					"type": "url",
+					"id": "item_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "text",
+					"id": "button_text",
+					"label": "Button text"
+				},
+				{
+					"type": "select",
+					"id": "caption_style",
+					"label": "Caption style",
+					"default": "none",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "Dark bg",
+							"value": "dark"
+						},
+						{
+							"label": "Light bg",
+							"value": "light"
+						}
+					]
+				}
+			]
+		},
+
+
+		// BIG BANNER 75% //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "big_75",
+			"name": "Big banner(75%)",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "item_img",
+					"label": "Banner image"
+				},
+				{
+					"type": "select",
+					"id": "caption_position",
+					"label": "Caption position",
+					"options": [
+						{
+							"label": "Left",
+							"value": "left"
+						},
+						{
+							"label": "Right",
+							"value": "right"
+						},
+						{
+							"label": "Bottom",
+							"value": "bottom"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "item_subtitle",
+					"label": "Caption subtitle"
+				},
+				{
+					"type": "text",
+					"id": "item_title",
+					"label": "Caption title"
+				},
+				{
+					"type": "select",
+					"id": "title_effect",
+					"label": "Title effect",
+					"default": "none",
+					"info": "Before using, you need to enable animation in the general settings",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "RollIn",
+							"value": "rollIn"
+						},
+						{
+							"label": "Flip",
+							"value": "flip"
+						},
+						{
+							"label": "Flash",
+							"value": "flash"
+						},
+						{
+							"label": "Pulse",
+							"value": "pulse"
+						},
+						{
+							"label": "Swing",
+							"value": "swing"
+						},
+						{
+							"label": "Tada",
+							"value": "tada"
+						},
+						{
+							"label": "Wobble",
+							"value": "wobble"
+						},
+						{
+							"label": "Fade In",
+							"value": "fadeIn"
+						},
+						{
+							"label": "Rotate In",
+							"value": "rotateIn"
+						},
+						{
+							"label": "Shake",
+							"value": "shake"
+						},
+						{
+							"label": "Bounce",
+							"value": "bounce"
+						},
+						{
+							"label": "Bounce In Up",
+							"value": "bounceInUp"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "item_text",
+					"label": "Caption text"
+				},
+				{
+					"type": "url",
+					"id": "item_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "text",
+					"id": "button_text",
+					"label": "Button text"
+				},
+				{
+					"type": "select",
+					"id": "caption_style",
+					"label": "Caption style",
+					"default": "none",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "Dark bg",
+							"value": "dark"
+						},
+						{
+							"label": "Light bg",
+							"value": "light"
+						}
+					]
+				}
+			]
+		},
+
+
+		// BIG BANNER 75% WITH 3 ITEMS //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "big_75_3item",
+			"name": "Three banners (75%)",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "select",
+					"id": "caption_position",
+					"label": "Caption position",
+					"default": "left",
+					"options": [
+						{
+							"label": "Left",
+							"value": "left"
+						},
+						{
+							"label": "Right",
+							"value": "right"
+						}
+					]
+				},
+				{
+					"type": "header",
+					"content": "Main banner"
+				},
+				{
+					"type": "image_picker",
+					"id": "item1_img",
+					"label": "Banner image (870x381)"
+				},
+				{
+					"type": "richtext",
+					"id": "item1_title",
+					"label": "Caption title"
+				},
+				{
+					"type": "select",
+					"id": "title_effect",
+					"label": "Title effect",
+					"default": "none",
+					"info": "Before using, you need to enable animation in the general settings",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "RollIn",
+							"value": "rollIn"
+						},
+						{
+							"label": "Flip",
+							"value": "flip"
+						},
+						{
+							"label": "Flash",
+							"value": "flash"
+						},
+						{
+							"label": "Pulse",
+							"value": "pulse"
+						},
+						{
+							"label": "Swing",
+							"value": "swing"
+						},
+						{
+							"label": "Tada",
+							"value": "tada"
+						},
+						{
+							"label": "Wobble",
+							"value": "wobble"
+						},
+						{
+							"label": "Fade In",
+							"value": "fadeIn"
+						},
+						{
+							"label": "Rotate In",
+							"value": "rotateIn"
+						},
+						{
+							"label": "Shake",
+							"value": "shake"
+						},
+						{
+							"label": "Bounce",
+							"value": "bounce"
+						},
+						{
+							"label": "Bounce In Up",
+							"value": "bounceInUp"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "item1_subtitle",
+					"label": "Caption subtitle"
+				},
+				{
+					"type": "url",
+					"id": "item1_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "text",
+					"id": "button1_text",
+					"label": "Button text"
+				},
+				{
+					"type": "header",
+					"content": "Countdown date"
+				}, 
+				{
+					"type": "select",
+					"id": "countdown_date_day",
+					"label": "Day",
+					"options": [
+						{
+							"value": "1",
+							"label": "1"
+						},
+						{
+							"value": "2",
+							"label": "2"
+						},
+						{
+							"value": "3",
+							"label": "3"
+						},
+						{
+							"value": "4",
+							"label": "4"
+						},
+						{
+							"value": "5",
+							"label": "5"
+						},
+						{
+							"value": "6",
+							"label": "6"
+						},
+						{
+							"value": "7",
+							"label": "7"
+						},
+						{
+							"value": "8",
+							"label": "8"
+						},
+						{
+							"value": "9",
+							"label": "9"
+						},
+						{
+							"value": "10",
+							"label": "10"
+						},
+						{
+							"value": "11",
+							"label": "11"
+						},
+						{
+							"value": "12",
+							"label": "12"
+						},
+						{
+							"value": "13",
+							"label": "13"
+						},
+						{
+							"value": "14",
+							"label": "14"
+						},
+						{
+							"value": "15",
+							"label": "15"
+						},
+						{
+							"value": "16",
+							"label": "16"
+						},
+						{
+							"value": "17",
+							"label": "17"
+						},
+						{
+							"value": "18",
+							"label": "18"
+						},
+						{
+							"value": "19",
+							"label": "19"
+						},
+						{
+							"value": "20",
+							"label": "20"
+						},
+						{
+							"value": "21",
+							"label": "21"
+						},
+						{
+							"value": "22",
+							"label": "22"
+						},
+						{
+							"value": "23",
+							"label": "23"
+						},
+						{
+							"value": "24",
+							"label": "24"
+						},
+						{
+							"value": "25",
+							"label": "25"
+						},
+						{
+							"value": "26",
+							"label": "26"
+						},
+						{
+							"value": "27",
+							"label": "27"
+						},
+						{
+							"value": "28",
+							"label": "28"
+						},
+						{
+						   "value": "29",
+						   "label": "29"
+						},
+						{
+							"value": "30",
+							"label": "30"
+						},
+						{
+							"value": "31",
+							"label": "31"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "countdown_date_month",
+					"label": "Month",
+					"options": [
+						{
+							"value": "01",
+							"label": "January"
+						},
+						{
+							"value": "02",
+							"label": "February"
+						},
+						{
+							"value": "03",
+							"label": "March"
+						},
+						{
+							"value": "04",
+							"label": "April"
+						},
+						{
+							"value": "05",
+							"label": "May"
+						},
+						{
+							"value": "06",
+							"label": "June"
+						},
+						{
+							"value": "07",
+							"label": "July"
+						},
+						{
+							"value": "08",
+							"label": "August"
+						},
+						{
+							"value": "09",
+							"label": "September"
+						},
+						{
+							"value": "10",
+							"label": "October"
+						},
+						{
+							"value": "11",
+							"label": "November"
+						},
+						{
+							"value": "12",
+							"label": "December"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "countdown_date_year",
+					"label": "Year",
+					"options": [
+						{
+							"value": "2018",
+							"label": "2018"
+						},
+						{
+							"value": "2019",
+							"label": "2019"
+						},
+						{
+							"value": "2020",
+							"label": "2020"
+						},
+						{
+							"value": "2021",
+							"label": "2021"
+						},
+						{
+							"value": "2022",
+							"label": "2022"
+						},
+						{
+							"value": "2023",
+							"label": "2023"
+						},
+						{
+							"value": "2024",
+							"label": "2024"
+						},
+						{
+							"value": "2025",
+							"label": "2025"
+						},
+						{
+							"value": "2026",
+							"label": "2026"
+						}
+					]
+				},
+				{
+					"type": "header",
+					"content": "Small banner"
+				},
+				{
+					"type": "text",
+					"id": "item2_title",
+					"label": "Caption title"
+				},
+				{
+					"type": "text",
+					"id": "item2_subtitle",
+					"label": "Caption subtitle"
+				},
+				{
+					"type": "url",
+					"id": "item2_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "header",
+					"content": "Medium banner"
+				},
+				{
+					"type": "image_picker",
+					"id": "item3_img",
+					"label": "Banner image (570x170)"
+				},
+				{
+					"type": "text",
+					"id": "item3_title",
+					"label": "Caption title"
+				},
+				{
+					"type": "text",
+					"id": "item3_subtitle",
+					"label": "Caption subtitle"
+				},
+				{
+					"type": "url",
+					"id": "item3_link",
+					"label": "Link",
+					"info": "Optional"
+				}
+			]
+		},
+
+
+		// TWO BIG BANNERS 50%  //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "two_big_50",
+			"name": "Two big banners(50%)",
+			"limit": 2,
+			"settings": [
+				{
+					"type": "paragraph",
+					"content": "Banner 1"
+				},
+				{
+					"type": "image_picker",
+					"id": "item_img",
+					"label": "Banner 1 image"
+				},
+				{
+					"type": "text",
+					"id": "item_subtitle",
+					"label": "Banner 1 subtitle"
+				},
+				{
+					"type": "richtext",
+					"id": "item_title",
+					"label": "Banner 1 title"
+				},
+				{
+					"type": "select",
+					"id": "title_effect1",
+					"label": "Title effect",
+					"default": "none",
+					"info": "Before using, you need to enable animation in the general settings",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "RollIn",
+							"value": "rollIn"
+						},
+						{
+							"label": "Flip",
+							"value": "flip"
+						},
+						{
+							"label": "Flash",
+							"value": "flash"
+						},
+						{
+							"label": "Pulse",
+							"value": "pulse"
+						},
+						{
+							"label": "Swing",
+							"value": "swing"
+						},
+						{
+							"label": "Tada",
+							"value": "tada"
+						},
+						{
+							"label": "Wobble",
+							"value": "wobble"
+						},
+						{
+							"label": "Fade In",
+							"value": "fadeIn"
+						},
+						{
+							"label": "Rotate In",
+							"value": "rotateIn"
+						},
+						{
+							"label": "Shake",
+							"value": "shake"
+						},
+						{
+							"label": "Bounce",
+							"value": "bounce"
+						},
+						{
+							"label": "Bounce In Up",
+							"value": "bounceInUp"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "item_button_text",
+					"label": "Banner 1 button text"
+				},
+				{
+					"type": "url",
+					"id": "item_link",
+					"label": "Banner 1 link",
+					"info": "Optional"
+				},
+				{
+					"type": "paragraph",
+					"content": "Banner 2"
+				},
+				{
+					"type": "image_picker",
+					"id": "item2_img",
+					"label": "Banner 2 image"
+				},
+				{
+					"type": "text",
+					"id": "item2_subtitle",
+					"label": "Banner 2 subtitle"
+				},
+				{
+					"type": "richtext",
+					"id": "item2_title",
+					"label": "Banner 2 title"
+				},
+				{
+					"type": "select",
+					"id": "title_effect2",
+					"label": "Title effect",
+					"default": "none",
+					"info": "Before using, you need to enable animation in the general settings",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "RollIn",
+							"value": "rollIn"
+						},
+						{
+							"label": "Flip",
+							"value": "flip"
+						},
+						{
+							"label": "Flash",
+							"value": "flash"
+						},
+						{
+							"label": "Pulse",
+							"value": "pulse"
+						},
+						{
+							"label": "Swing",
+							"value": "swing"
+						},
+						{
+							"label": "Tada",
+							"value": "tada"
+						},
+						{
+							"label": "Wobble",
+							"value": "wobble"
+						},
+						{
+							"label": "Fade In",
+							"value": "fadeIn"
+						},
+						{
+							"label": "Rotate In",
+							"value": "rotateIn"
+						},
+						{
+							"label": "Shake",
+							"value": "shake"
+						},
+						{
+							"label": "Bounce",
+							"value": "bounce"
+						},
+						{
+							"label": "Bounce In Up",
+							"value": "bounceInUp"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "item2_button_text",
+					"label": "Banner 2 button text"
+				},
+				{
+					"type": "url",
+					"id": "item2_link",
+					"label": "Banner 2 link",
+					"info": "Optional"
+				},
+				{
+					"type": "select",
+					"id": "caption_position",
+					"label": "Caption position",
+					"options": [
+						{
+							"label": "Left",
+							"value": "left"
+						},
+						{
+							"label": "Right",
+							"value": "right"
+						},
+						{
+							"label": "Bottom",
+							"value": "bottom"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "caption_style",
+					"label": "Caption style",
+					"default": "none",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "Dark bg",
+							"value": "dark"
+						},
+						{
+							"label": "Light bg",
+							"value": "light"
+						}
+					]
+				}
+			]
+		},
+
+		// TWO SMALL BANNERS 25%  //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "two_small_25",
+			"name": "Two small banners(25%)",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "item_img",
+					"label": "Banner 1 image"
+				},
+				
+				{
+					"type": "url",
+					"id": "item_link",
+					"label": "Banner 1 link",
+					"info": "Optional"
+				},
+				{
+					"type": "text",
+					"id": "item_text",
+					"label": "Banner 1 caption"
+				},
+				{
+					"type": "image_picker",
+					"id": "item2_img",
+					"label": "Banner 2 image"
+				},
+				
+				{
+					"type": "url",
+					"id": "item2_link",
+					"label": "Banner 2 link",
+					"info": "Optional"
+				},
+				{
+					"type": "text",
+					"id": "item_text2",
+					"label": "Banner 2 caption"
+				}
+			]
+		},
+
+
+		// MENU  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "menu",
+			"name": "Menu (25%)",
+			"settings": [
+				{
+					"type": "link_list",
+					"id": "links",
+					"label": "Choose linklist",
+					"info": "8-12 links, depends on height"
+				},
+				{
+					"type": "radio",
+					"id": "link_style",
+					"label": "Link limit",
+					"options": [
+						{ 
+							"value": "rarefied", 
+							"label": "Rarefied" 
+						},
+						{ 
+							"value": "compact", 
+							"label": "Compact" 
+						}
+					],
+					"default": "rarefied"
+				}
+			]
+		},
+
+
+		// ONE SMALL BANNER 25%  //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "one_small_25",
+			"name": "One small banner(25%)",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "item_img",
+					"label": "Banner image"
+				},
+				{
+					"type": "text",
+					"id": "item_subtitle",
+					"label": "Banner subtitle"
+				},
+				{
+					"type": "richtext",
+					"id": "item_title",
+					"label": "Banner title"
+				},
+				{
+					"type": "url",
+					"id": "item_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "select",
+					"id": "caption_style",
+					"label": "Caption style",
+					"default": "none",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "Dark bg",
+							"value": "dark"
+						},
+						{
+							"label": "Light bg",
+							"value": "light"
+						}
+					]
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Banners",
+			"category": "Image",
+			"blocks": [
+				{
+					"type": "two_small_25"
+				},
+				{
+					"type": "big_50"
+				},
+				{
+					"type": "two_small_25"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+
+
+{% javascript %}
+jQuery(document).ready(function($) {
+	$('.countdown_timer').each(function(i) {
+
+		var timerId = '#' + $(this).attr('id');
+		var countdownDay = $(this).data('day');
+		var countdownMonth = $(this).data('month');
+		var countdownYear = $(this).data('year');
+		
+		$( timerId ).ccountdown(countdownYear, countdownMonth, countdownDay,'00:00'); 
+		
+	});
+
+});
+{% endjavascript %}

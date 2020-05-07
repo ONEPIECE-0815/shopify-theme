@@ -1,0 +1,724 @@
+<div class="section_bg" {% if section.settings.bg_color.size > 0 and section.settings.bg_color != 'rgba(0,0,0,0)' %} style="background-color: {{ section.settings.bg_color }}"{% endif %}>
+<div class="container">
+	<div class="row">
+		{% for block in section.blocks %}
+			{% case block.type %}
+
+				{% when 'big_66' %}
+					{%- assign img_size = '770x300' -%}
+					
+					<div class="col-sm-8 banner_{{ block.type }}">
+						<div class="banner_item">
+							{% if block.settings.item_img.size > 0 %}
+								<div class="img_placeholder__wrap" style="background-image: url( {{ block.settings.item_img | img_url: img_size, crop: 'center' }} );"></div>
+							{% else %}
+								<div class="img_placeholder__wrap">
+									{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+
+							<div class="banner_caption position_{{ block.settings.caption_position }} style_{{ block.settings.caption_style }}">  
+								<div class="caption_text {% if block.settings.inverted %}inverted{% endif %}">
+									<div>
+
+										{% if block.settings.item_subtitle.size > 0 %}
+											<h4>{{ block.settings.item_subtitle }}</h4>
+										{% endif %}
+
+										{% if block.settings.item_title.size > 0 %}
+											<h3>{{ block.settings.item_title }}</h3>
+										{% endif %}
+
+
+										{% if block.settings.item_text.size > 0 %}
+											<p class="banner_text">{{ block.settings.item_text }}</p>
+										{% endif %}
+									</div>
+
+									{% if block.settings.item_link.size > 0 and block.settings.button_text.size > 0 %}
+										<a class="btn banner_btn" href="{{ block.settings.item_link }}">{{ block.settings.button_text }}</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+
+				{% when 'big_66_count' %}
+					<div class="col-sm-8 banner_{{ block.type }}">
+						<div class="banner_item banner_item_main">
+							{% if block.settings.item1_img.size > 0 %}
+								<div class="img_placeholder__wrap" style="background-image: url( {{ block.settings.item1_img | img_url: '770x420', crop: 'center' }} );"></div>
+							{% else %}
+								<div class="img_placeholder__wrap">
+									{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+
+							<div class="banner_caption position_{{ block.settings.caption_position }}">  
+								<div class="caption_text {% if block.settings.inverted %}inverted{% endif %}">
+									<div class="timer">
+										<div class="countdown_timer" id="timer_{{ forloop.index }}_{{ section.id }}" data-day="{{ block.settings.countdown_date_day }}" data-month="{{ block.settings.countdown_date_month }}" data-year="{{ block.settings.countdown_date_year }}">
+											<p class="countdown_days">
+												<input class="days"><span>{{ 'layout.countdown.days' | t }}</span>
+											</p>
+											<p class="countdown_hours">
+												<input class="hour"><span>{{ 'layout.countdown.hours' | t }}</span>
+											</p>
+											<p class="countdown_minuts">
+												<input class="minute"><span>{{ 'layout.countdown.minutes' | t }}</span>
+											</p>
+											<p class="countdown_seconds">
+												<input class="second"><span>{{ 'layout.countdown.seconds' | t }}</span>
+											</p>
+										</div>
+									</div>
+
+									<div>
+										{% if block.settings.item1_title.size > 0 %}
+											<div class="caption_header">{{ block.settings.item1_title }}</div>
+										{% endif %}
+
+										{% if block.settings.item1_subtitle.size > 0 %}
+											<h4>{{ block.settings.item1_subtitle }}</h4>
+										{% endif %}
+									</div>
+
+									{% if block.settings.item1_link.size > 0 and block.settings.button1_text.size > 0 %}
+										<a class="btn banner_btn" href="{{ block.settings.item1_link }}">{{ block.settings.button1_text }}</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+				{% when 'one_small_33' %}
+					{%- assign img_size = '370x300' -%}
+
+					<div class="col-sm-4 banner_{{ block.type }}">
+						<div class="banner_item">
+							{% if block.settings.item_img.size > 0 %}
+								<div class="img_placeholder__wrap" style="background-image: url( {{ block.settings.item_img | img_url: img_size, crop: 'center' }} );"></div>
+							{% else %}
+								<div class="img_placeholder__wrap">
+									{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+
+							<div class="banner_caption style_{{ block.settings.caption_style }}">
+								<div class="caption_text {% if block.settings.inverted %}inverted{% endif %}">
+									<div>
+										{% if block.settings.item_subtitle.size > 0 %}
+											<h4>{{ block.settings.item_subtitle }}</h4>
+										{% endif %}
+
+										{% if block.settings.item_title.size > 0 %}
+											<h3>{{ block.settings.item_title }}</h3>
+										{% endif %}
+
+										{% if block.settings.item_link.size > 0 and block.settings.button1_text.size > 0 %}
+											<a class="btn banner_btn" href="{{ block.settings.item1_link }}">{{ block.settings.button1_text }}</a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				{% when 'one_big_33' %}
+					{%- assign img_size = '370x420' -%}
+				
+					<div class="col-sm-4 banner_{{ block.type }}">
+						<div class="banner_item">
+							{% if block.settings.item_img.size > 0 %}
+								<div class="img_placeholder__wrap" style="background-image: url( {{ block.settings.item_img | img_url: img_size, crop: 'center' }} );"></div>
+							{% else %}
+								<div class="img_placeholder__wrap">
+									{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+								</div>
+							{% endif %}
+
+							<a href="{{ block.settings.item_link }}" class="banner_caption style_{{ block.settings.caption_style }}">
+								<div class="caption_text {% if block.settings.inverted %}inverted{% endif %}">
+									<div>
+
+										{% if block.settings.item_title.size > 0 %}
+											<h3>{{ block.settings.item_title }}</h3>
+										{% endif %}
+										
+										{% if block.settings.item_subtitle.size > 0 %}
+											<h4>{{ block.settings.item_subtitle }}</h4>
+										{% endif %}
+
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+			{% endcase %}
+		{% endfor %}
+	</div>
+</div>
+</div>
+
+{% schema %}
+{
+	"name": "Banners custom",
+	"class": "section section_homepage section_banners-custom",
+	"max_blocks": 4,
+	"settings": [
+		{
+			"type": "color",
+			"id": "bg_color",
+			"label": "Background color"
+		},
+		{
+            "type": "header",
+            "content": {
+        			"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+        		},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"blocks": [
+
+		// BIG BANNER 66% //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "big_66",
+			"name": "Big banner(66%)",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "item_img",
+					"label": "Banner image"
+				},
+				{
+					"type": "select",
+					"id": "caption_position",
+					"label": "Caption position",
+					"options": [
+						{
+							"label": "Left",
+							"value": "left"
+						},
+						{
+							"label": "Right",
+							"value": "right"
+						},
+						{
+							"label": "Bottom",
+							"value": "bottom"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "item_subtitle",
+					"label": "Caption subtitle"
+				},
+				{
+					"type": "text",
+					"id": "item_title",
+					"label": "Caption title"
+				},
+				{
+					"type": "text",
+					"id": "item_text",
+					"label": "Caption text"
+				},
+				{
+					"type": "url",
+					"id": "item_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "text",
+					"id": "button_text",
+					"label": "Button text"
+				},
+				{
+					"type": "checkbox",
+					"id": "inverted",
+					"label": "Inverted text color"
+				},
+				{
+					"type": "select",
+					"id": "caption_style",
+					"label": "Caption style",
+					"default": "none",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "Dark bg",
+							"value": "dark"
+						},
+						{
+							"label": "Light bg",
+							"value": "light"
+						}
+					]
+				}
+			]
+		},
+
+
+		// BIG BANNER 66% WITH COUNTDOWN //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "big_66_count",
+			"name": "Three banners (75%)",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "select",
+					"id": "caption_position",
+					"label": "Caption position",
+					"default": "left",
+					"options": [
+						{
+							"label": "Left",
+							"value": "left"
+						},
+						{
+							"label": "Right",
+							"value": "right"
+						}
+					]
+				},
+				{
+					"type": "header",
+					"content": "Main banner"
+				},
+				{
+					"type": "image_picker",
+					"id": "item1_img",
+					"label": "Banner image (870x381)"
+				},
+				{
+					"type": "richtext",
+					"id": "item1_title",
+					"label": "Caption title"
+				},
+				{
+					"type": "text",
+					"id": "item1_subtitle",
+					"label": "Caption subtitle"
+				},
+				{
+					"type": "url",
+					"id": "item1_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "text",
+					"id": "button1_text",
+					"label": "Button text"
+				},
+				{
+					"type": "checkbox",
+					"id": "inverted",
+					"label": "Inverted text color"
+				},
+				{
+					"type": "header",
+					"content": "Countdown date"
+				}, 
+				{
+					"type": "select",
+					"id": "countdown_date_day",
+					"label": "Day",
+					"options": [
+						{
+							"value": "1",
+							"label": "1"
+						},
+						{
+							"value": "2",
+							"label": "2"
+						},
+						{
+							"value": "3",
+							"label": "3"
+						},
+						{
+							"value": "4",
+							"label": "4"
+						},
+						{
+							"value": "5",
+							"label": "5"
+						},
+						{
+							"value": "6",
+							"label": "6"
+						},
+						{
+							"value": "7",
+							"label": "7"
+						},
+						{
+							"value": "8",
+							"label": "8"
+						},
+						{
+							"value": "9",
+							"label": "9"
+						},
+						{
+							"value": "10",
+							"label": "10"
+						},
+						{
+							"value": "11",
+							"label": "11"
+						},
+						{
+							"value": "12",
+							"label": "12"
+						},
+						{
+							"value": "13",
+							"label": "13"
+						},
+						{
+							"value": "14",
+							"label": "14"
+						},
+						{
+							"value": "15",
+							"label": "15"
+						},
+						{
+							"value": "16",
+							"label": "16"
+						},
+						{
+							"value": "17",
+							"label": "17"
+						},
+						{
+							"value": "18",
+							"label": "18"
+						},
+						{
+							"value": "19",
+							"label": "19"
+						},
+						{
+							"value": "20",
+							"label": "20"
+						},
+						{
+							"value": "21",
+							"label": "21"
+						},
+						{
+							"value": "22",
+							"label": "22"
+						},
+						{
+							"value": "23",
+							"label": "23"
+						},
+						{
+							"value": "24",
+							"label": "24"
+						},
+						{
+							"value": "25",
+							"label": "25"
+						},
+						{
+							"value": "26",
+							"label": "26"
+						},
+						{
+							"value": "27",
+							"label": "27"
+						},
+						{
+							"value": "28",
+							"label": "28"
+						},
+						{
+						   "value": "29",
+						   "label": "29"
+						},
+						{
+							"value": "30",
+							"label": "30"
+						},
+						{
+							"value": "31",
+							"label": "31"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "countdown_date_month",
+					"label": "Month",
+					"options": [
+						{
+							"value": "01",
+							"label": "January"
+						},
+						{
+							"value": "02",
+							"label": "February"
+						},
+						{
+							"value": "03",
+							"label": "March"
+						},
+						{
+							"value": "04",
+							"label": "April"
+						},
+						{
+							"value": "05",
+							"label": "May"
+						},
+						{
+							"value": "06",
+							"label": "June"
+						},
+						{
+							"value": "07",
+							"label": "July"
+						},
+						{
+							"value": "08",
+							"label": "August"
+						},
+						{
+							"value": "09",
+							"label": "September"
+						},
+						{
+							"value": "10",
+							"label": "October"
+						},
+						{
+							"value": "11",
+							"label": "November"
+						},
+						{
+							"value": "12",
+							"label": "December"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "countdown_date_year",
+					"label": "Year",
+					"options": [
+						{
+							"value": "2018",
+							"label": "2018"
+						},
+						{
+							"value": "2019",
+							"label": "2019"
+						},
+						{
+							"value": "2020",
+							"label": "2020"
+						},
+						{
+							"value": "2021",
+							"label": "2021"
+						},
+						{
+							"value": "2022",
+							"label": "2022"
+						},
+						{
+							"value": "2023",
+							"label": "2023"
+						},
+						{
+							"value": "2024",
+							"label": "2024"
+						},
+						{
+							"value": "2025",
+							"label": "2025"
+						},
+						{
+							"value": "2026",
+							"label": "2026"
+						}
+					]
+				}
+				
+			]
+		},
+
+		// ONE SMALL BANNER 33%  //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "one_small_33",
+			"name": "One small banner(33%)",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "item_img",
+					"label": "Banner image"
+				},
+				{
+					"type": "text",
+					"id": "item_subtitle",
+					"label": "Banner subtitle"
+				},
+				{
+					"type": "richtext",
+					"id": "item_title",
+					"label": "Banner title"
+				},
+				{
+					"type": "url",
+					"id": "item_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "text",
+					"id": "button1_text",
+					"label": "Button text"
+				},
+				{
+					"type": "checkbox",
+					"id": "inverted",
+					"label": "Inverted text color"
+				},
+				{
+					"type": "select",
+					"id": "caption_style",
+					"label": "Caption style",
+					"default": "none",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "Dark bg",
+							"value": "dark"
+						},
+						{
+							"label": "Light bg",
+							"value": "light"
+						}
+					]
+				}
+			]
+		},
+
+		// ONE BIG BANNER 33%  //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "one_big_33",
+			"name": "One big banner(33%)",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "item_img",
+					"label": "Banner image"
+				},
+				{
+					"type": "text",
+					"id": "item_subtitle",
+					"label": "Banner subtitle"
+				},
+				{
+					"type": "richtext",
+					"id": "item_title",
+					"label": "Banner title"
+				},
+				{
+					"type": "url",
+					"id": "item_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "checkbox",
+					"id": "inverted",
+					"label": "Inverted text color"
+				},
+				{
+					"type": "select",
+					"id": "caption_style",
+					"label": "Caption style",
+					"default": "none",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "Dark bg",
+							"value": "dark"
+						},
+						{
+							"label": "Light bg",
+							"value": "light"
+						}
+					]
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Banners custom",
+			"category": "Image",
+			"blocks": [
+				{
+					"type": "big_66"
+				},
+				{
+					"type": "one_small_33"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+
+
+{% javascript %}
+jQuery(document).ready(function($) {
+	$('.countdown_timer').each(function(i) {
+
+		var timerId = '#' + $(this).attr('id');
+		var countdownDay = $(this).data('day');
+		var countdownMonth = $(this).data('month');
+		var countdownYear = $(this).data('year');
+		
+		$( timerId ).ccountdown(countdownYear, countdownMonth, countdownDay,'00:00'); 
+		
+	});
+
+});
+{% endjavascript %}

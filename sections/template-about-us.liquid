@@ -1,0 +1,518 @@
+<div class="container">
+	<h1 class="page_heading">{{ page_title }}</h1>
+
+	<div class="page_content">
+		{% for block in section.blocks %}
+			{% case block.type %}
+				{% when 'text-block' %}
+					<div class="page_content__block page_content__text">
+						{% if block.settings.title.size > 0 %}
+							<h2 class="block_title">{{ block.settings.title }}</h2>
+						{% endif %}
+
+						{% if block.settings.text.size > 0 %}
+							<div class="block_content rte">
+								{{ block.settings.text }}
+							</div>
+						{% endif %}
+					</div>
+
+				{% when 'icons-block' %}
+					<div class="page_content__block page_content__icons">
+						{% if block.settings.title.size > 0 %}
+							<h2 class="block_title">{{ block.settings.title }}</h2>
+						{% endif %}
+
+						<div class="row">
+							{% for i in (1..3) %}
+								{% capture item_icon %}icon_{{ i }}{% endcapture %}
+								{% capture item_title %}title_{{ i }}{% endcapture %}
+								{% capture item_text %}text_{{ i }}{% endcapture %}
+
+								<div class="col-sm-4">
+									<div class="item">
+										<div class="item_icon">
+											<i class="fa fa-{{ block.settings[item_icon] }}"></i>
+										</div>
+
+										{% if block.settings[item_title].size > 0 %}
+											<h3 class="item_title">{{ block.settings[item_title] }}</h3>
+										{% endif %}
+
+										{% if block.settings[item_text].size > 0 %}
+											<div class="item_text">{{ block.settings[item_text] }}</div>
+										{% endif %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+
+				{% when 'photos-block' %}
+					<div class="page_content__block page_content__photos">
+						{% if block.settings.title.size > 0 %}
+							<h2 class="block_title">{{ block.settings.title }}</h2>
+						{% endif %}
+
+						<div class="row">
+							{% for i in (1..4) %}
+								{% capture item_photo %}img_{{ i }}{% endcapture %}
+								{% assign item_photo = block.settings[item_photo] %}
+
+								{% capture item_title %}title_{{ i }}{% endcapture %}
+								{% assign item_title = block.settings[item_title] %}
+
+								{% capture item_text %}text_{{ i }}{% endcapture %}
+								{% assign item_text = block.settings[item_text] %}
+
+								{% if item_photo.size > 0 or item_title.size > 0 or item_text.size > 0 %}
+									<div class="col-sm-3">
+										<div class="item">
+											{% if item_photo.size > 0 %}
+												<div class="item_img">
+													<img src="{{ item_photo.src | img_url: '270x270' }}" alt="{{ item_icon.alt }}">
+												</div>
+											{% endif %}
+
+											{% if item_title.size > 0 %}
+												<h3 class="item_title">{{ item_title }}</h3>
+											{% endif %}
+
+											{% if item_text.size > 0 %}
+												<div class="item_text">{{ item_text }}</div>
+											{% endif %}
+										</div>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+
+				{% when 'testimonials-block' %}
+					<div class="page_content__block page_content__testimonials">
+						{% if block.settings.title.size > 0 %}
+							<h2 class="block_title">{{ block.settings.title }}</h2>
+						{% endif %}
+
+						{% for i in (1..3) %}
+							
+							{% capture item_name %}name_{{ i }}{% endcapture %}
+							{% assign item_name = block.settings[item_name] %}
+
+							{% capture item_text %}text_{{ i }}{% endcapture %}
+							{% assign item_text = block.settings[item_text] %}
+
+							{% if item_name.size > 0 or item_text.size > 0 %}
+								<div class="item rte">
+									<blockquote>
+										{% if item_text.size > 0 %}
+											<p>{{ item_text }}</p>
+										{% endif %}
+
+										{% if item_name.size > 0 %}
+											<b>{{ item_name }}</b>
+										{% endif %}
+									</blockquote>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+			{% endcase %}
+		{% endfor %}
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "About us",
+	"class": "section section_template section_template__about",
+	"max_blocks": 8,
+	"settings": [
+		{
+			"type": "header",
+			"content": "«About us» page"
+		}
+	],
+
+	"blocks": [
+
+
+		// TEXT BLOCK /////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "text-block",
+			"name": "Text block",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title",
+					"default": "Catering to your requirements, handling your needs with care"
+				},
+				{
+					"type": "richtext",
+					"id": "text",
+					"label": "Text",
+					"default": "<p>Our store is more than just another average online retailer. We sell not only top quality products, but give our customers a positive online shopping experience. Forget about struggling to do everything at once: taking care of the family, running your business, walking your dog, cleaning the house, doing the shopping, etc. Purchase the goods you need every day or just like in a few clicks or taps, depending on the device you use to access the Internet. We work to make your life more enjoyable.</p>"
+				}
+			]
+		},
+
+
+		// ICONS BLOCK ////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "icons-block",
+			"name": "Icons block",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title",
+					"default": "Store events"
+				},
+
+				// ITEM 1 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 1"
+				},
+				{
+					"type": "select",
+					"id": "icon_1",
+					"label": "Icon",
+					"options": [
+						{
+							"value": "search",
+							"label": "Looking glass"
+						},
+						{
+							"value": "truck",
+							"label": "Truck"
+						},
+						{
+							"value": "thumbs-o-up",
+							"label": "Thumbs up"
+						},
+						{
+							"value": "trophy",
+							"label": "Trophy"
+						},
+						{
+							"value": "star",
+							"label": "Star"
+						},
+						{
+							"value": "envelope-o",
+							"label": "Envelope"
+						},
+						{
+							"value": "gift",
+							"label": "Gift"
+						}
+					],
+					"default": "search"
+				},
+				{
+					"type": "text",
+					"id": "title_1",
+					"label": "Title",
+					"default": "For convenience of choice"
+				},
+				{
+					"type": "richtext",
+					"id": "text_1",
+					"label": "Text",
+					"default": "<p>We think about the convenience of your choice. Our products are supplied with star rating that should help hesitant buyers to take a decision. What’s more, you can search our site if you know exactly what you are looking for or use a bunch of different filters that will considerably save your time and efforts.</p>"
+				},
+
+				// ITEM 2 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 2"
+				},
+				{
+					"type": "select",
+					"id": "icon_2",
+					"label": "Icon",
+					"options": [
+						{
+							"value": "search",
+							"label": "Looking glass"
+						},
+						{
+							"value": "truck",
+							"label": "Truck"
+						},
+						{
+							"value": "thumbs-o-up",
+							"label": "Thumbs up"
+						},
+						{
+							"value": "trophy",
+							"label": "Trophy"
+						},
+						{
+							"value": "star",
+							"label": "Star"
+						},
+						{
+							"value": "envelope-o",
+							"label": "Envelope"
+						},
+						{
+							"value": "gift",
+							"label": "Gift"
+						}
+					],
+					"default": "truck"
+				},
+				{
+					"type": "text",
+					"id": "title_2",
+					"label": "Title",
+					"default": "Delivery to all regions"
+				},
+				{
+					"type": "richtext",
+					"id": "text_2",
+					"label": "Text",
+					"default": "<p>We deliver our goods worldwide. No matter where you live, your order will be shipped in time and delivered right to your door or to any other location you have stated. The packages are handled with utmost care, so the ordered products will be handed to you safe and sound, just like you expect them to be.</p>"
+				},
+
+				// ITEM 3 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 3"
+				},
+				{
+					"type": "select",
+					"id": "icon_3",
+					"label": "Icon",
+					"options": [
+						{
+							"value": "search",
+							"label": "Looking glass"
+						},
+						{
+							"value": "truck",
+							"label": "Truck"
+						},
+						{
+							"value": "thumbs-o-up",
+							"label": "Thumbs up"
+						},
+						{
+							"value": "trophy",
+							"label": "Trophy"
+						},
+						{
+							"value": "star",
+							"label": "Star"
+						},
+						{
+							"value": "envelope-o",
+							"label": "Envelope"
+						},
+						{
+							"value": "gift",
+							"label": "Gift"
+						}
+					],
+					"default": "thumbs-o-up"
+				},
+				{
+					"type": "text",
+					"id": "title_3",
+					"label": "Title",
+					"default": "The highest quality of products"
+				},
+				{
+					"type": "richtext",
+					"id": "text_3",
+					"label": "Text",
+					"default": "<p>We guarantee the highest quality of the products we sell. Several decades of successful operation and millions of happy customers let us feel certain about that. Besides, all items we sell pass thorough quality control, so no characteristics mismatch can escape the eye of our professionals.</p>"
+				}
+			]
+		},
+
+
+		// PHOTOS BLOCK ///////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "photos-block",
+			"name": "Photos block",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title",
+					"default": "Our team"
+				},
+
+				// ITEM 1 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 1"
+				},
+				{
+					"type": "image_picker",
+					"id": "img_1",
+					"label": "Image",
+					"info": "Will be resized to 270x270px"
+				},
+				{
+					"type": "text",
+					"id": "title_1",
+					"label": "Title",
+					"default": "Robert Johnson"
+				},
+				{
+					"type": "richtext",
+					"id": "text_1",
+					"label": "Text",
+					"default": "<p>Senior salesman with 15 years of experience. He knows everything about the products he offers.</p>"
+				},
+
+				// ITEM 2 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 2"
+				},
+				{
+					"type": "image_picker",
+					"id": "img_2",
+					"label": "Image",
+					"info": "Will be resized to 270x270px"
+				},
+				{
+					"type": "text",
+					"id": "title_2",
+					"label": "Title",
+					"default": "Jessica Priston"
+				},
+				{
+					"type": "richtext",
+					"id": "text_2",
+					"label": "Text",
+					"default": "<p>Mega positive shop assistant always ready to help you make the right choice and charm you with a smile.</p>"
+				},
+
+				// ITEM 3 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 3"
+				},
+				{
+					"type": "image_picker",
+					"id": "img_3",
+					"label": "Image",
+					"info": "Will be resized to 270x270px"
+				},
+				{
+					"type": "text",
+					"id": "title_3",
+					"label": "Title",
+					"default": "Sam Kromstain"
+				},
+				{
+					"type": "richtext",
+					"id": "text_3",
+					"label": "Text",
+					"default": "<p>Wholesale manager. Contact him if you want to buy a batch of the products offered at our store.</p>"
+				},
+
+				// ITEM 4 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 4"
+				},
+				{
+					"type": "image_picker",
+					"id": "img_4",
+					"label": "Image",
+					"info": "Will be resized to 270x270px"
+				},
+				{
+					"type": "text",
+					"id": "title_4",
+					"label": "Title",
+					"default": "Edna Barton"
+				},
+				{
+					"type": "richtext",
+					"id": "text_4",
+					"label": "Text",
+					"default": "<p>Quality control manager. Her mission is to check the products we ship and settle quality issues if any.</p>"
+				}
+			]
+		},
+
+
+		// TESTIMONIALS BLOCK /////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "testimonials-block",
+			"name": "Testimonials block",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title",
+					"default": "Testimonials"
+				},
+
+				// ITEM 1 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 1"
+				},
+				{
+					"type": "text",
+					"id": "name_1",
+					"label": "Name",
+					"default": "Mary Taba"
+				},
+				{
+					"type": "textarea",
+					"id": "text_1",
+					"label": "Text",
+					"default": "Guys, you rock! Made a purchase at your store recently. The order has been shipped and delivered on time. The quality is superb! The price is quite reasonable. Told all my friends about your excellent service and the variety of choice. I think I’ll be your loyal customer in future as well. I wish your store many more years of prosperity."
+				},
+
+				// ITEM 2 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 2"
+				},
+				{
+					"type": "text",
+					"id": "name_2",
+					"label": "Name",
+					"default": "Virginia Ubert"
+				},
+				{
+					"type": "textarea",
+					"id": "text_2",
+					"label": "Text",
+					"default": "Thank you again and again! I have experienced the fastest support ever. My order arrived on my door step the following day. Your team is always, friendly and very helpful. You managed to exceed my expectations!"
+				},
+
+				// ITEM 3 /////////////////////////////////////////////////////////////////////////////////
+				{
+					"type": "header",
+					"content": "Item 3"
+				},
+				{
+					"type": "text",
+					"id": "name_3",
+					"label": "Name"
+				},
+				{
+					"type": "textarea",
+					"id": "text_3",
+					"label": "Text"
+				}
+			]
+		}
+
+	]
+
+}
+{% endschema %}

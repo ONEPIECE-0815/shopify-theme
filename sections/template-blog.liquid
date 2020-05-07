@@ -1,0 +1,200 @@
+{% paginate blog.articles by 12 %}
+	{% unless settings.sidebar_toggle %}
+		<div class="container">
+	{% endunless %}
+
+		{% comment %}<h1 class="page_heading">
+			{{ page_title }}
+			<a class="rss_link" href="{{ shop.url }}{{ blog.url }}.atom"><i class="fa fa-rss" aria-hidden="true"></i></a>
+		</h1>{% endcomment %}
+
+		{% if section.settings.blog_tags_toggle and blog.all_tags.size > 0 %}
+			<div class="button_filters">
+				<ul>
+					<li {% unless current_tags %}class="active"{% endunless %}>
+						<a href="{{ blog.url }}"><b>{{ 'blog.articles.all_tags' | t }}</b></a>
+					</li>
+
+					{% for tag in blog.all_tags %}
+						<li {% if current_tags contains tag %}class="active"{% endif %}><a href="/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}">{{ tag }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+
+		<div class="blog_listing__main blog_listing__{{ section.settings.layout }}">
+			<div class="row">
+				{% for article in blog.articles %}
+					<div class="col-sm-6 col-md-4 {% cycle 'step2': 'item_2_1', '' %} {% cycle 'step3': 'item_3_1', '', '' %}">
+						<article class="article_item flexible_block flexible_block__{{ section.settings.text_position }} {% if section.settings.text_position == 'overlay' %}flexible_block__hover{% endif %}">
+							{% if article.image %}
+								{% case section.settings.layout %}
+									{% when 'grid' %}
+										{% case section.settings.img_size %}
+											{% when 'small' %}
+												{%- assign article_img = article.image | img_url: '370x208', crop: section.settings.img_alignment -%}
+											{% when 'medium' %}
+												{%- assign article_img = article.image | img_url: '310x338', crop: section.settings.img_alignment -%}
+											{% when 'large' %}
+												{%- assign article_img = article.image | img_url: '370x493', crop: section.settings.img_alignment -%}
+											
+										{% endcase %}
+
+									{% when 'list' %}
+										{% if section.settings.text_position == 'normal' %}
+											{% case section.settings.img_size %}
+												{% when 'small' %}
+													{%- assign article_img = article.image | img_url: '290x210', crop: section.settings.img_alignment -%}
+												{% when 'medium' %}
+													{%- assign article_img = article.image | img_url: '290x290', crop: section.settings.img_alignment -%}
+												{% when 'large' %}
+													{%- assign article_img = article.image | img_url: '290x360', crop: section.settings.img_alignment -%}
+											{% endcase %}
+
+										{% else %}
+											{% if settings.sidebar_toggle %}
+												{%- assign article_img = article.image | img_url: '810x', crop: section.settings.img_alignment -%}
+											{% else %}
+												{%- assign article_img = article.image | img_url: '1170x', crop: section.settings.img_alignment -%}
+											{% endif %}
+										{% endif %}
+									
+								{% endcase %}
+
+								{% if section.settings.text_position == 'normal' %}
+									<div class="layer_1">
+										<img src="{{ article_img }}" alt="{{ article_img.alt }}">
+									</div>
+								{% else %}
+									<div class="layer_1 img_wrapper__{{ section.settings.img_size }} img_align__{{ section.settings.img_alignment }}" style="background-image: url( {{ article_img }} );"></div>
+								{% endif %}
+							{% else %}
+								<div class="layer_1 img_wrapper__{{ section.settings.img_size }} img_align__{{ section.settings.img_alignment }} no_img"></div>
+							{% endif %}
+
+							<div class="layer_2">
+								<div>
+									<h3 class="article_title">
+										<a href="{{ article.url }}">{{ article.title | truncate: 55 }}</a>
+									</h3>
+
+									<div class="rte article_content">
+										{% if article.excerpt.size > 0 %}
+											{{ article.excerpt }}
+										{% else %}
+											{{ article.content | strip_html | truncatewords: 20 }}
+										{% endif %}
+									</div>
+
+									<div class="rte article_content_big">{{ article.content | strip_html | truncatewords: 80 }}</div>
+
+									<p class="article_info">
+										<span>
+											<time class="article_time" datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M' }}">{{ article.published_at | date: '%B %d, %Y' }}</time>
+										</span>
+
+										{% if blog.comments_enabled? %}
+											<span class="article_comments">{{ article.comments_count }} {{ 'blog.articles.comments' | t }}</span>
+										{% endif %}
+									</p>
+
+									<a class="btn article_btn" href="{{ article.url }}">{{ 'blog.articles.read_more' | t }}</a>
+								</div>
+							</div>
+						</article>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div id="pagination" class="pagination blog_pagination">
+			{{ paginate | default_pagination }}
+		</div>
+		
+	{% unless settings.sidebar_toggle %}
+		</div>
+	{% endunless %}
+{% endpaginate %}
+
+{% schema %}
+{
+	"name": "Blog page",
+	"class": "section_template section_template__blog",
+	"settings": [
+		{
+			"type": "select",
+			"id": "layout",
+			"label": "Layout",
+			"default": "list",
+			"options": [
+				{
+					"value": "grid",
+					"label": "Grid"
+				},
+				{
+					"value": "list",
+					"label": "List"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "img_size",
+			"label": "Images size",
+			"options": [
+				{
+					"value": "small",
+					"label": "Small"
+				},
+				{
+					"value": "medium",
+					"label": "Medium"
+				},
+				{
+					"value": "large",
+					"label": "Large"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "img_alignment",
+			"label": "Images alignment",
+			"options": [
+				{
+					"value": "top",
+					"label": "Top"
+				},
+				{
+					"value": "center",
+					"label": "Middle"
+				},
+				{
+					"value": "bottom",
+					"label": "Bottom"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "text_position",
+			"label": "Text position",
+			"options": [
+				{
+					"value": "normal",
+					"label": "Normal"
+				},
+				{
+					"value": "overlay",
+					"label": "Overlay"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "blog_tags_toggle",
+			"label": "Show tags"
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,156 @@
+<div class="index_newsletter_wrapper" {% if section.settings.background_toggle %} style="background-color: {{ section.settings.bg_color }}"{% endif %} {% if section.settings.background_image_toggle %} style="background: url( {{ section.settings.background_image | img_url: '1440x528', crop: 'top' }} );"{% endif %}>
+
+<div class="container">
+	<div class="item__newsletter {% if section.settings.newsletter_inverted %}inverted{% endif %}">
+		<h3>{{ section.settings.title | escape }}</h3>
+		
+		{% case settings.newsletter_form_type %}
+			{% when 'newsletter_shopify' %}
+					{% capture newsletterForm %}
+						{% form 'customer' %}
+							{{ form.errors | default_errors }}
+
+							<p class="alert alert-success">{{ 'layout.footer.newsletter_success' | t }}</p>
+						
+							{% if section.settings.text.size > 0 %}
+								<p class="form_text">{{ section.settings.text | escape }}</p>
+							{% endif %}
+							<input type="hidden" name="contact[tags]" value="Newsletter subscriber">
+							<div class="form_wrapper">
+								<input type="email" name="contact[email]" class="input-group__field newsletter__input" placeholder="Enter your email">
+								<button class="btn" type="submit">{{ 'layout.footer.subscribe_button' | t }}</button>
+							</div>
+							
+						{% endform %}
+					{% endcapture %}
+
+					{% assign newsletterForm = newsletterForm | replace: "'", "&lsquo;" | replace: 'id="contact_form"', 'id="newsletter_form"' | strip_newlines %}
+
+			{% when 'newsletter_mailchimp' %}
+				{% capture newsletterForm %}
+					<p class="form_text">{{ section.settings.text | escape }}</p>
+					<div class="newsletter_form__mailchimp">
+						<form action="{{ settings.newsletter_mailchimp_url }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form">
+							<input required type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Enter your email">
+							<button class="btn" type="submit" name="subscribe" id="mc-embedded-subscribe">{{ 'layout.footer.subscribe_button' | t }}</button>
+						</form>
+					</div>
+				{% endcapture %}
+		{% endcase %}
+
+		{{ newsletterForm }}
+	</div>
+</div>
+
+</div>
+
+{% schema %}
+{
+	"name": "Newsletter",
+	"class": "section section_newsletter",
+	"settings": [
+		{
+			"type": "header",
+			"content": "Newsletter form",
+			"info": "Warning! To avoid errors, please use this section only once."
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Header text"
+		},
+		{
+			"type": "textarea",
+			"id": "text",
+			"label": "Text"
+		},
+		{
+			"type": "checkbox",
+			"id": "newsletter_inverted",
+			"label": "Inverted style",
+			"default": false
+		},
+		{
+			"type": "header",
+			"content": "Background image"
+		},
+		{
+			"type": "checkbox",
+			"id": "background_image_toggle",
+			"label": "Show background image",
+			"default": false
+		},
+		{
+			"type": "image_picker",
+			"id": "background_image",
+			"label": "Image",
+			"info": "The image should be more than 2050px wide to resize and crop properly"
+		},
+		{
+			"type": "checkbox",
+			"id": "background_toggle",
+			"label": "Show background color",
+			"default": true
+		},
+		{
+			"type": "color",
+			"id": "bg_color",
+			"label": "Background color",
+			"default": "#FC4747"
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"presets": [
+		{
+			"name": "Newsletter",
+			"category": "Customer"
+		}
+	]
+}
+{% endschema %}
+
+{% javascript %}
+jQuery(document).ready(function($) {
+	
+
+	// CHECK FORM POSTED
+	$('.contact-form').each(function (){      
+		$(this).on('submit', function(e){
+			var formCookie = $(this).attr('class');
+			$.cookie('formSended', formCookie);
+		});
+	});
+	
+	if( document.location.href.indexOf('?customer_posted=true') > 0 && $.cookie('formSended') == 'contact-form') {
+		$('#newsletter_form .form_wrapper').hide();
+		$('#newsletter_form .form_text').hide();
+		$('#newsletter_form .alert-success').show();
+	};
+
+	// FORM VALIDATION
+	$(document).ready(function() {
+		$('#newsletter_form').formValidation();
+	});
+
+});
+{% endjavascript %}

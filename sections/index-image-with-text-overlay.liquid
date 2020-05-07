@@ -1,0 +1,468 @@
+{% if section.settings.parallax %}
+	{% if section.settings.section_view == 'full_width' %}
+		{% case section.settings.section_height %}
+			{% when 'small' %}{%- assign img_size = '2048x880' -%}
+			{% when 'medium' %}{%- assign img_size = '2048x1100' -%}
+			{% when 'large' %}{%- assign img_size = '2048x1230' -%}
+		{% endcase %}
+	{% else %}
+		{% case section.settings.section_height %}
+			{% when 'small' %}{%- assign img_size = '1170x503' -%}
+			{% when 'medium' %}{%- assign img_size = '1170x628' -%}
+			{% when 'large' %}{%- assign img_size = '1170x700' -%}
+		{% endcase %}
+	{% endif %}
+{% else %}
+	{% if section.settings.section_view == 'full_width' %}
+		{% case section.settings.section_height %}
+			{% when 'small' %}{%- assign img_size = '2048x500' -%}
+			{% when 'medium' %}{%- assign img_size = '2048x670' -%}
+			{% when 'large' %}{%- assign img_size = '2048x800' -%}
+		{% endcase %}
+	{% else %}
+		{% case section.settings.section_height %}
+			{% when 'small' %}{%- assign img_size = '1170x286' -%}
+			{% when 'medium' %}{%- assign img_size = '1170x383' -%}
+			{% when 'large' %}{%- assign img_size = '1170x457' -%}
+		{% endcase %}
+	{% endif %}
+{% endif %}
+
+{% if section.settings.section_view == 'boxed' %}
+	<div class="container">
+{% endif %}
+
+<div class="section_wrap flexible_block__{{ section.settings.section_height }} {% if section.settings.parallax %}parallax_block{% endif %}">
+	{% if section.settings.image.size > 0 %}
+		<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }} {% if section.settings.parallax %}parallax_layer{% endif %}" style="background-image: url( {{ section.settings.image | img_url: img_size, crop: section.settings.img_alignment }} );"></div>
+	{% else %}
+		<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }} {% if section.settings.parallax %}parallax_layer{% endif %}">
+			{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+		</div>
+	{% endif %}
+  
+  	{% if section.settings.image_2.size > 0 %}
+		<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }} {% if section.settings.parallax_2 %}parallax_layer_2{% endif %}" style="background-image: url( {{ section.settings.image_2 | img_url: img_size, crop: section.settings.img_alignment_2 }} );"></div>
+	{% endif %}
+
+	<div class="section_txt align_{{ section.settings.caption_align }} {{ section.settings.section_view }}">
+		<div class="container"> 
+			<div class="caption_text {% if section.settings.inverted %}inverted{% endif %}" {% if section.settings.caption_bg_color.size > 0 %}style="background-color: {{ section.settings.caption_bg_color | color_modify: 'alpha', section.settings.caption_bg_color_opacity  }}"{% endif %}>
+				{% for block in section.blocks %}
+					{% if block.settings.title.size > 0 %}
+						<h2 {% if settings.text-animation and block.settings.title_effect != 'none' %} class="title_animation" data-in-effect="{{ block.settings.title_effect }}" id="title_{{ section.id }}_{{ block.id }}"{% endif %}>{{ block.settings.title | escape }}</h2> 
+					{% endif %}
+					
+					{% if block.settings.subtitle.size > 0 %}
+						<h4>{{ block.settings.subtitle | escape }}</h4>
+					{% endif %}
+
+					{% if block.settings.subsubtitle.size > 0 %}
+						<h5>{{ block.settings.subsubtitle | escape }}</h5>
+					{% endif %}
+
+					{% if block.settings.text.size > 0 %} 
+						<p>{{ block.settings.text | strip_html }}</p>
+					{% endif %}
+
+					{% if block.settings.button_label.size > 0 and block.settings.button_link.size > 0 %}
+						<a href="{{ block.settings.button_link }}" class="btn">{{ block.settings.button_label }}</a>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% if section.settings.section_view == 'boxed' %}
+	</div>
+{% endif %}
+
+{% schema %}
+{
+	"name": "Image with text overlay",
+	"class": "section section_homepage section_image-with-text-overlay",
+	"max_blocks": 6,
+	"settings": [
+		{
+			"type": "select",
+			"id": "section_height",
+			"label": "Section height",
+			"default": "medium",
+			"options": [
+				{
+					"label": "Small (2048x500)",
+					"value": "small"
+				},
+				{
+					"label": "Medium (2048x670)",
+					"value": "medium"
+				},
+				{
+					"label": "Large (2048x800)",
+					"value": "large"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "section_view",
+			"label": "Section view",
+			"default": "boxed",
+			"options": [
+				{
+					"label": "Boxed",
+					"value": "boxed"
+				},
+				{
+					"label": "Full width",
+					"value": "full_width"
+				}
+			]
+		},
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image",
+			"info": "The image should be more than 2048px wide to resize and crop properly"
+		},
+		{
+			"type": "select",
+			"id": "img_alignment",
+			"label": "Image alignment",
+			"info": "It only works if the parallax is disabled",
+			"options": [
+				{
+					"value": "top",
+					"label": "Top"
+				},
+				{
+					"value": "center",
+					"label": "Middle"
+				},
+				{
+					"value": "bottom",
+					"label": "Bottom"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "parallax",
+			"label": "Parallax",
+			"default": false
+		},
+
+
+
+
+		{
+			"type": "image_picker",
+			"id": "image_2",
+			"label": "Image 2",
+			"info": "The image should be more than 2048px, with transparency in the PNG format"
+		},
+		{
+			"type": "select",
+			"id": "img_alignment_2",
+			"label": "Image alignment",
+			"info": "It only works if the parallax is disabled",
+			"options": [
+				{
+					"value": "top",
+					"label": "Top"
+				},
+				{
+					"value": "center",
+					"label": "Middle"
+				},
+				{
+					"value": "bottom",
+					"label": "Bottom"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "parallax_2",
+			"label": "Parallax 2",
+			"default": false
+		},
+
+
+
+
+		{
+			"type": "select",
+			"id": "caption_align",
+			"label": "Caption align",
+			"default": "center",
+			"options": [
+				{
+					"label": "Center",
+					"value": "center"
+				},
+				{
+					"label": "Right",
+					"value": "right"
+				},
+				{
+					"label": "Left",
+					"value": "left"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "inverted",
+			"label": "Inverted",
+			"default": false
+		},
+		{
+			"type": "color",
+			"id": "caption_bg_color",
+			"label": "Caption background"
+		},
+		{
+	        "type":      "range",
+	        "id":        "caption_bg_color_opacity",
+	        "min":       0,
+	        "max":        1,
+	        "step":       0.1,
+	        "unit":       "px",
+	        "label":     "Background opacity",
+	        "default":   0.5
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"blocks": [
+
+		// HEADER H2 //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "header_h2",
+			"name": "Header h2",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Image"
+				},
+				{
+					"type": "select",
+					"id": "title_effect",
+					"label": "Title effect",
+					"default": "none",
+					"info": "Before using, you need to enable animation in the general settings",
+					"options": [
+						{
+							"label": "None",
+							"value": "none"
+						},
+						{
+							"label": "RollIn",
+							"value": "rollIn"
+						},
+						{
+							"label": "Flip",
+							"value": "flip"
+						},
+						{
+							"label": "Flash",
+							"value": "flash"
+						},
+						{
+							"label": "Pulse",
+							"value": "pulse"
+						},
+						{
+							"label": "Swing",
+							"value": "swing"
+						},
+						{
+							"label": "Tada",
+							"value": "tada"
+						},
+						{
+							"label": "Wobble",
+							"value": "wobble"
+						},
+						{
+							"label": "Fade In",
+							"value": "fadeIn"
+						},
+						{
+							"label": "Rotate In",
+							"value": "rotateIn"
+						},
+						{
+							"label": "Shake",
+							"value": "shake"
+						},
+						{
+							"label": "Bounce",
+							"value": "bounce"
+						},
+						{
+							"label": "Bounce In Up",
+							"value": "bounceInUp"
+						}
+					]
+				}
+			]
+		},
+
+		// HEADER H4 //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "header_h4",
+			"name": "Header h4",
+			"settings": [
+				{
+					"type": "text",
+					"id": "subtitle",
+					"label": "Sub heading",
+					"default": "with text overlay"
+				}
+			]
+		},
+
+		// HEADER H5 //////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "header_h5",
+			"name": "Header h5",
+			"settings": [
+				{
+					"type": "text",
+					"id": "subsubtitle",
+					"label": "Sub heading"
+				}
+			]
+		},
+
+		// TEXT  //////////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "text",
+			"name": "Text",
+			"settings": [
+				{
+					"type": "textarea",
+					"id": "text",
+					"label": "Text",
+					"default": "Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story."
+				}
+			]
+		},
+
+		// BUTTON  //////////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "button",
+			"name": "Button",
+			"settings": [
+				{
+					"type": "text",
+					"id": "button_label",
+					"label": "Button label"
+				},
+				{
+					"type": "url",
+					"id": "button_link",
+					"label": "Button link"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Image with text overlay",
+			"category": "Image"
+		}
+	]
+}
+{% endschema %}
+
+{% javascript %}
+jQuery(function($){
+
+	morkoParallax = function() {
+		$('.parallax_block').each(function() {
+			var parallaxBlock = $(this);
+			var parallaxLayer = $(this).find('.parallax_layer');
+			var parallaxLayer_2 = $(this).find('.parallax_layer_2');
+
+			$(window).on('load scroll', function() {
+				var parallaxHeight = parseInt( parallaxBlock.outerHeight() );
+				var parallaxImgHeight = parseInt( parallaxLayer.outerHeight() );
+				var parallaxImgHeight_2 = parseInt( parallaxLayer_2.outerHeight() );
+
+				var parallaxOffset1 = parseInt( parallaxBlock.offset().top );
+				var parallaxOffset2 = parseInt( parallaxOffset1 + parallaxHeight );
+
+				var translateMax = parseInt( parallaxImgHeight - parallaxHeight ) - 2; // minus 2 to prevent floated numbers and borders between sections
+				var translateMax_2 = parseInt( parallaxImgHeight_2 - parallaxHeight ) - 2; 
+
+				var scrollTemp = $(window).scrollTop() + window.innerHeight;
+
+				if ( ( scrollTemp >= parallaxOffset1 ) && ( $(window).scrollTop() <= parallaxOffset2 ) ) {
+					// var translateKoff = parallaxHeight/parallaxImgHeight;
+
+					// if ( translateKoff > 0.2 ) {
+					// 	var translateVal = parseInt( ( scrollTemp - parallaxOffset1 ) * 0.2 );
+					// }
+					// else {
+					// 	var translateVal = parseInt( ( scrollTemp - parallaxOffset1 ) * translateKoff );
+					// };
+
+					var translateVal = parseInt( ( scrollTemp - parallaxOffset1 ) * 0.3 );
+					var translateVal_2 = parseInt( ( scrollTemp - parallaxOffset1 ) * 0.1 );
+
+					if ( translateVal <= translateMax ) {
+						parallaxLayer.css({ 'transform' : 'translate3d(0, -' + translateVal + 'px, 0)' });
+                        parallaxLayer_2.css({ 'transform' : 'translate3d(0, -' + translateVal_2 + 'px, 0)' });
+					}
+					else if ( translateVal > translateMax ) {
+						parallaxLayer.css({ 'transform' : 'translate3d(0, -' + translateMax + 'px, 0)' });
+						
+					};
+
+				};
+
+			});
+
+		});
+
+	};
+
+
+	morkoParallax();
+
+
+	$(document).on('shopify:section:load shopify:section:unload', '.section_image-with-text-overlay', function() {
+		morkoParallax();
+	});
+
+
+
+	
+
+});
+{% endjavascript %}

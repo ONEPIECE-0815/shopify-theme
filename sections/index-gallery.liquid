@@ -1,0 +1,238 @@
+{% case section.blocks.size %}
+	{% when 1 %}
+		{%- assign block_class = 'col-xs-12' -%}
+		{% if section.settings.boxed %}
+			{%- assign img_w = 1170 -%}
+		{% else %}
+			{%- assign img_w = 2048 -%}
+		{% endif %}
+
+	{% when 2 %}
+		{%- assign block_class = 'col-xs-6' -%}
+		{% if section.settings.boxed %}
+			{%- assign img_w = 570 -%}
+		{% else %}
+			{%- assign img_w = 1024 -%}
+		{% endif %}
+
+	{% when 3 %}
+		{%- assign block_class = 'col-xs-4' -%}
+		{% if section.settings.boxed %}
+			{%- assign img_w = 370 -%}
+		{% else %}
+			{%- assign img_w = 682 -%}
+		{% endif %}
+
+	{% else %}
+		{%- assign block_class = 'col-xs-3' -%}
+		{% if section.settings.boxed %}
+			{%- assign img_w = 270 -%}
+		{% else %}
+			{%- assign img_w = 512 -%}
+		{% endif %}
+
+{% endcase %}
+
+{% case section.settings.section_height %}
+	{% when 'small'  %}
+		{%- assign img_h = 230 -%}
+	{% when 'medium' %}
+		{%- assign img_h = 330 -%}
+	{% when 'large'  %}
+		{%- assign img_h = 512 -%}
+{% endcase %}
+
+{% capture img_size %}{{ img_w }}x{{ img_h }}{% endcapture %}
+
+<div class="section_gallery__{{ section.blocks | size }} {{ section.settings.section_style }}">
+
+	{% if section.settings.boxed %}
+		<div class="container">
+	{% endif %}
+		<div class="row{% unless section.settings.boxed %} galery_wrap{% endunless %}"> 
+
+		{% for block in section.blocks %}
+			<div class="{{ block_class }}">
+				<div class="gallery_item">
+					{% if block.settings.item_img.size > 0 %}
+						<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}" style="background-image: url( {{ block.settings.item_img | img_url: img_size, crop: block.settings.item_img_alignment }} );"></div>
+					{% else %}
+						<div class="img_placeholder__wrap img_placeholder__{{ section.settings.section_height }}">
+							{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+						</div>
+					{% endif %}
+
+					{% if block.settings.item_link.size > 0 or block.settings.item_text.size > 0 %}
+						{% if block.settings.item_link.size > 0 %}
+							<a class="item_caption" href="{{ block.settings.item_link }}">
+						{% else %}
+							<div class="item_caption">
+						{% endif %}
+
+							<div class="caption_text">
+								{% if block.settings.item_text1.size > 0 %}
+									<h4>{{ block.settings.item_text1 }}</h4>
+								{% endif %}
+
+								{% if block.settings.item_text2.size > 0 %}
+									<h3>{{ block.settings.item_text2 }}</h3>
+								{% endif %}
+							</div>
+
+						{% if block.settings.item_link.size > 0 %}
+							</a>
+						{% else %}
+							</div>
+						{% endif %}
+					{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+
+		</div>
+	{% if section.settings.boxed %}
+		</div>
+	{% endif %}
+</div>
+
+{% schema %}
+{
+	"name": "Gallery",
+	"class": "section section_homepage section_gallery",
+	"max_blocks": 4,
+	"settings": [
+		{
+			"type": "select",
+			"id": "section_height",
+			"label": "Section height",
+			"options": [
+				{
+					"label": "Small",
+					"value": "small"
+				},
+				{
+					"label": "Medium",
+					"value": "medium"
+				},
+				{
+					"label": "Large",
+					"value": "large"
+				}
+			]
+		},
+		{
+			"type": "checkbox",
+			"id": "boxed",
+			"label": "Boxed size"
+		},
+		{
+			"type": "select",
+			"id": "section_style",
+			"label": "Section style",
+			"default": "style_1",
+			"options": [
+				{
+					"label": "Style #1",
+					"value": "style_1"
+				},
+				{
+					"label": "Style #2",
+					"value": "style_2"
+				},
+				{
+					"label": "Style #3",
+					"value": "style_3"
+				}
+			]
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"blocks": [
+		{
+			"type": "image",
+			"name": "Image",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "item_img",
+					"label": "Image",
+					"info": "For higher quality upload images wider than 2048 pixels"
+				},
+				{
+					"type": "select",
+					"id": "item_img_alignment",
+					"label": "Image alignment",
+					"default": "center",
+					"options": [
+						{
+							"value": "top",
+							"label": "Top"
+						},
+						{
+							"value": "center",
+							"label": "Middle"
+						},
+						{
+							"value": "bottom",
+							"label": "Bottom"
+						}
+					]
+				},
+				{
+					"type": "url",
+					"id": "item_link",
+					"label": "Link",
+					"info": "Optional"
+				},
+				{
+					"type": "text",
+					"id": "item_text1",
+					"label": "Caption text #1"
+				},
+				{
+					"type": "text",
+					"id": "item_text2",
+					"label": "Caption text #2"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Gallery",
+			"category": "Image",
+			"blocks": [
+				{
+					"type": "image"
+				},
+				{
+					"type": "image"
+				},
+				{
+					"type": "image"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

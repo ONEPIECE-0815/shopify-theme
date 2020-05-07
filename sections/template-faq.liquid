@@ -1,0 +1,164 @@
+<div class="container">
+	{% if section.settings.show_title %}
+		<h1 class="page_heading">{{ page_title }}</h1>
+	{% endif %}
+
+	<div class="page_content row">
+		{% if page.content.size > 0 %}
+			<div class="col-xs-12 rte">
+				{{ page.content }}
+			</div>
+		{% endif %}
+
+		<div class="col-md-6 left_content">
+			{% for block in section.blocks %}
+				{% assign residue = forloop.index | modulo:2 %}
+				{% if residue > 0 %}
+					<div class="tab_item">
+						{% if block.settings.block_title.size > 0 %}
+							<h2 class="tab_title"><span class="menu_trigger">{{ block.settings.block_title }}</h2>
+						{% endif %}
+						
+						<div class="tab_content tab_content_wrapper">
+							{% for i in (1..6) %}
+								{% capture header %}element_{{ i }}_header{% endcapture %}
+								{% capture text %}element_{{ i }}_text{% endcapture %}
+								
+								{% if block.settings[header].size > 0 %}
+									<div class="tab_element">
+										<h3 class="element_title tab_nav" data-tab="{{ i | minus: 1 }}"><i class="fa fa-plus-circle" aria-hidden="true"></i><i class="fa fa-minus-circle" aria-hidden="true"></i>{{ block.settings[header] }}</h3>
+										<div class="element_text tab_item">{{ block.settings[text] }}</div>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+
+		<div class="col-md-6 right_content">
+			{% for block in section.blocks %}
+				{% assign residue = forloop.index | modulo:2 %}
+				{% if residue == 0 %}
+					<div class="tab_item">
+						{% if block.settings.block_title.size > 0 %}
+							<h2 class="tab_title">{{ block.settings.block_title }}</h2>
+						{% endif %}
+						
+						<div class="tab_content tab_content_wrapper">
+							{% for i in (1..6) %}
+								{% capture header %}element_{{ i }}_header{% endcapture %}
+								{% capture text %}element_{{ i }}_text{% endcapture %}
+								
+								{% if block.settings[header].size > 0 %}
+									<div class="tab_element">
+										<h3 class="element_title tab_nav"  data-tab="{{ i | minus: 1 }}"><i class="fa fa-plus-circle" aria-hidden="true"></i><i class="fa fa-minus-circle" aria-hidden="true"></i>{{ block.settings[header] }}</h3>
+										<div class="element_text tab_item">{{ block.settings[text] }}</div>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Faq",
+	"class": "section section_template section_template__faq",
+	"max_blocks": 8,
+	"settings": [
+		{
+			"type": "header",
+			"content": "«Faq» page"
+		},
+		{
+			"type": "checkbox",
+			"id": "show_title",
+			"label": "Show Page title"
+		}
+	],
+
+	"blocks": [
+
+		{
+			"type": "tab-block",
+			"name": "Tab block",
+			"settings": [
+				{
+					"type": "text",
+					"id": "block_title",
+					"label": "Block title",
+					"default": "Block title"
+				},
+				{
+					"type": "text",
+					"id": "element_1_header",
+					"label": "Element 1 title"
+				},
+				{
+					"type": "richtext",
+					"id": "element_1_text",
+					"label": "Element 1 text"
+				},
+				{
+					"type": "text",
+					"id": "element_2_header",
+					"label": "Element 2 title"
+				},
+				{
+					"type": "richtext",
+					"id": "element_2_text",
+					"label": "Element 2 text"
+				},
+				{
+					"type": "text",
+					"id": "element_3_header",
+					"label": "Element 3 title"
+				},
+				{
+					"type": "richtext",
+					"id": "element_3_text",
+					"label": "Element 3 text"
+				},
+				{
+					"type": "text",
+					"id": "element_4_header",
+					"label": "Element 4 title"
+				},
+				{
+					"type": "richtext",
+					"id": "element_4_text",
+					"label": "Element 4 text"
+				},
+				{
+					"type": "text",
+					"id": "element_5_header",
+					"label": "Element 5 title"
+				},
+				{
+					"type": "richtext",
+					"id": "element_5_text",
+					"label": "Element 5 text"
+				},
+				{
+					"type": "text",
+					"id": "element_6_header",
+					"label": "Element 6 title"
+				},
+				{
+					"type": "richtext",
+					"id": "element_6_text",
+					"label": "Element 6 text"
+				}
+			]
+		}
+
+	]
+
+}
+{% endschema %}

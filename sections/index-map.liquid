@@ -1,0 +1,289 @@
+{% case section.settings.map_style %}
+	{% when 'default'    %}{% assign map_style = '[]' %}
+	{% when 'light'      %}{% assign map_style = '[{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]' %}
+	{% when 'dark'       %}{% assign map_style = '[{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}]' %}
+	{% when 'pale_dawn'  %}{% assign map_style = '[{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]' %}
+	{% when 'apple_maps' %}{% assign map_style = '[{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]' %}
+	{% when 'midnight'   %}{% assign map_style = '[{"featureType":"all","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"color":"#000000"},{"lightness":13}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#144b53"},{"lightness":14},{"weight":1.4}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#08304b"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#0c4152"},{"lightness":5}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#0b434f"},{"lightness":25}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#000000"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"color":"#0b3d51"},{"lightness":16}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"transit","elementType":"all","stylers":[{"color":"#146474"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#021019"}]}]' %}
+{% endcase %}
+
+{% if section.settings.api_key %}
+	<script>
+		theme.mapKey = {{ section.settings.api_key | json }};
+	</script>
+{% endif %}
+
+<div class="section section_homepage section_map" data-section="{{ section.id }}" data-map-address="{{ section.settings.map_address }}" data-map-marker="{{ section.settings.map_marker }}" data-map-style='{{ map_style }}'>
+	<div class="map_wrapper map_wrapper__{{ section.settings.map_height }}">
+		<div id="map_{{ section.id }}" class="map_container {% unless section.settings.map_captions %}map_captions__off{% endunless %}"></div>
+
+		{% if section.settings.map_captions %}
+			<div class="map_captions__wrapper">
+				<div class="container">
+					<div class="wrap_1">
+						<div class="wrap_2">
+							<div class="map_captions">
+								{% if section.settings.map_captions_title.size > 0 %}
+									<h3 class="map_captions__title">{{ section.settings.map_captions_title }}</h3>
+								{% endif %}
+
+								{% if section.settings.map_captions_text.size > 0 %}
+									<div class="map_captions__text">{{ section.settings.map_captions_text }}</div>
+								{% endif %}
+
+								{% if section.settings.map_captions_button %}
+									<a class="btn map_captions__btn" href="//maps.google.com?daddr={{ section.settings.map_address | url_param_escape }}" target="_blank">{{ 'layout.map.get_directions' | t }}</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Map",
+	"class": "index-section",
+	"settings": [
+		{
+			"type": "select",
+			"id": "map_height",
+			"label": "Section height",
+			"default": "medium",
+			"options": [
+				{
+					"label": "Small",
+					"value": "small"
+				},
+				{
+					"label": "Medium",
+					"value": "medium"
+				},
+				{
+					"label": "Large",
+					"value": "large"
+				}
+			]
+		},
+
+
+		// MAP SETTINGS
+		{
+			"type": "header",
+			"content": "Map settings"
+		},
+		{
+			"id": "map_address",
+			"type": "text",
+			"label": "Map address",
+			"info": "Google maps will find the exact location",
+			"default": "80 Spadina Ave, Toronto"
+		},
+		{
+			"id": "api_key",
+			"type": "text",
+			"label": "Google Maps API key",
+			"info": "If your store experiences more than 2,500 visitors a day, you’ll need to generate both [JavaScript](https://developers.google.com/maps/documentation/javascript/get-api-key) and [Geocoding](https://developers.google.com/maps/documentation/geocoding/get-api-key) API keys"
+		},
+		{
+			"type": "select",
+			"id": "map_style",
+			"label": "Map style",
+			"options": [
+				{
+					"label": "Default style",
+					"value": "default"
+				},
+				{
+					"label": "Light",
+					"value": "light"
+				},
+				{
+					"label": "Dark",
+					"value": "dark"
+				},
+				{
+					"label": "Pale Dawn",
+					"value": "pale_dawn"
+				},
+				{
+					"label": "Apple maps",
+					"value": "apple_maps"
+				},
+				{
+					"label": "Midnight",
+					"value": "midnight"
+				}
+			]
+		},
+		{
+			"type": "color",
+			"id": "map_marker",
+			"label": "Marker_color",
+			"default": "#6977bc"
+		},
+
+
+		// MAP CAPTIONS
+		{
+			"type": "header",
+			"content": "Map captions"
+		},
+		{
+			"type": "checkbox",
+			"id": "map_captions",
+			"label": "Show captions",
+			"default": true
+		},
+		{
+			"id": "map_captions_title",
+			"type": "text",
+			"label": "Heading",
+			"default": "Our store"
+		},
+		{
+			"id": "map_captions_text",
+			"type": "richtext",
+			"label": "Text address and hours",
+			"default": "<p>123 Fake St.<br>Toronto, Canada</p><p>Mon - Fri, 10am - 9pm<br>Saturday, 11am - 9pm<br>Sunday, 11am - 5pm</p>"
+		},
+		{
+			"id": "map_captions_button",
+			"type": "checkbox",
+			"label": "Show 'Get directions' button",
+			"default": true
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"presets": [
+		{
+			"name": "Map",
+			"category": "Store information"
+		}
+	]
+}
+{% endschema %}
+
+{% javascript %}
+jQuery(document).ready(function($) {
+	$.getScript('//maps.googleapis.com/maps/api/js?key=' + theme.mapKey).then(function() {
+
+		$('.section_map').each(function(i) {
+
+			var mapId = $(this).data('section');
+			var mapBlock = 'map_' + mapId;
+
+			var mapAddress = $(this).data('map-address');
+			var mapMarker = $(this).data('map-marker');
+			var mapStyle = $(this).data('map-style');
+
+			var mapLoad = function(mapAddress, mapMarker, mapStyle) {
+
+				var latlng = new google.maps.LatLng(0, 0);
+
+				var mapOptions = {
+					center: latlng,
+					zoom: 15,
+					mapTypeId: google.maps.MapTypeId.ROADMAP,
+					panControl: true,
+					zoomControl: false,
+					mapTypeControl: false,
+					scaleControl: false,
+					scrollwheel: false,
+					streetViewControl: false,
+					rotateControl: false
+				};
+
+				var map = new google.maps.Map(document.getElementById( mapBlock ), mapOptions);
+
+				var geocoder = new google.maps.Geocoder();
+
+				geocoder.geocode( { 'address': mapAddress }, function(results, status) {
+					if ( status == google.maps.GeocoderStatus.OK ) {
+						map.setCenter( results[0].geometry.location );
+
+						var mapIcon = {
+							path:'M213.285,0h-0.608C139.114,0,79.268,59.826,79.268,133.361c0,48.202,21.952,111.817,65.246,189.081 c32.098,57.281,64.646,101.152,64.972,101.588c0.906,1.217,2.334,1.934,3.847,1.934c0.043,0,0.087,0,0.13-0.002 c1.561-0.043,3.002-0.842,3.868-2.143c0.321-0.486,32.637-49.287,64.517-108.976c43.03-80.563,64.848-141.624,64.848-181.482 C346.693,59.825,286.846,0,213.285,0z M274.865,136.62c0,34.124-27.761,61.884-61.885,61.884 c-34.123,0-61.884-27.761-61.884-61.884s27.761-61.884,61.884-61.884C247.104,74.736,274.865,102.497,274.865,136.62z',
+							fillColor: mapMarker,
+							fillOpacity: 0.9,
+							scale: 0.13,
+							strokeColor:'#BABBBB',
+							strokeWeight: 1
+						};
+
+						var marker = new google.maps.Marker({
+							position: results[0].geometry.location,
+							icon: mapIcon,
+							map: map,
+							title: mapAddress
+						});
+
+					}
+					else {
+						alert("Geocode was not successful for the following reason: " + status);
+					};
+
+				});
+
+				// MAP STYLES
+				map.setOptions({ styles: mapStyle });
+
+				// MAP RESPONSIVE RESIZE
+				google.maps.event.addDomListener(window, 'resize', function() {
+					var center = map.getCenter();
+					google.maps.event.trigger(map, "resize");
+					map.setCenter(center); 
+
+				});
+
+			};
+
+
+			// LOADING MAPS
+			mapLoadTrigger = true;
+
+			$(document).on('shopify:section:load', '#shopify-section-' + mapId, function() {
+
+				var mapInstance = $(this).find('.section_map');
+
+				var mapAddress = mapInstance.data('map-address');
+				var mapMarker = mapInstance.data('map-marker');
+				var mapStyle = mapInstance.data('map-style');
+
+				mapLoad(mapAddress, mapMarker, mapStyle);
+				mapLoadTrigger = false;
+
+			});
+
+			if ( mapLoadTrigger = true ) {
+				mapLoad(mapAddress, mapMarker, mapStyle);
+			};
+
+		});
+
+	});
+});
+{% endjavascript %}

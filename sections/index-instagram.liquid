@@ -1,0 +1,124 @@
+<div class="container {% if section.settings.inverted %}inverted{% endif %}"> 
+	<div class="instagram_feed swiper-container">
+		{% if section.settings.title.size > 0 %}
+				<h2 class="section_heading">{{ section.settings.title | escape }} <i>{{ section.settings.nick }}</i></h2>
+		{% endif %}
+
+		<div id="instafeed_{{ section.id }}" class="instafeed_wrap swiper-wrapper" data-user="{{ section.settings.instagram_user_id }}" data-token="{{ section.settings.instagram_access_token }}" data-limit="{{ section.settings.instagram_img_number }}"></div>
+		
+		<div id="instagram_prev_{{ section.id }}" class="swiper_btn instagram_btn__prev"></div>
+		<div id="instagram_next_{{ section.id }}" class="swiper_btn instagram_btn__next"></div>
+	</div>
+</div>
+
+{% if section.settings.section_bg_color.size > 0 and section.settings.section_bg_color != 'rgba(0,0,0,0)' %}
+	<style>
+		{% if section.settings.boxed_style %}
+			#shopify-section-{{ section.id }} .container {background-color: {{ section.settings.section_bg_color }};}
+		{% else %}
+			#shopify-section-{{ section.id }}.section_instagram {background-color: {{ section.settings.section_bg_color }};}
+		{% endif %}
+	</style>	
+{% endif %}
+
+{% schema %}
+{
+	"name": "Instagram feed",
+	"class": "section section_homepage section_instagram",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Instagram feed"
+		},
+		{
+			"type": "text",
+			"id": "nick",
+			"label": "Nick name"
+		},
+		{
+			"type": "checkbox",
+			"id": "boxed_style",
+			"label": "Boxed style",
+			"default": false
+		},
+		{
+			"type": "color",
+			"id": "section_bg_color",
+			"label": "Background color"
+		},
+		{
+			"type": "checkbox",
+			"id": "inverted",
+			"label": "Inverted text color"
+		},
+		{
+			"type": "text",
+			"id": "instagram_user_id",
+			"label": "Instagram user ID",
+			"info": "[You can find it here](\/\/smashballoon.com\/instagram-feed\/find-instagram-user-id\/)"
+		},
+		{
+			"type": "text",
+			"id": "instagram_access_token",
+			"label": "Instagram access token",
+			"info": "[You can find it here](\/\/instagram.pixelunion.net\/)"
+		},
+		{
+			"type": "select",
+			"id": "instagram_img_number",
+			"label": "Number of images",
+			"options": [
+				{
+					"value": "5",
+					"label": "5"
+				},
+				{
+					"value": "7",
+					"label": "7"
+				},
+				{
+					"value": "9",
+					"label": "9"
+				}
+			]
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"presets": [
+		{
+			"name": "Instagram feed",
+			"category": "Image"
+		}
+	]
+}
+{% endschema %}
+
+{% javascript %}
+jQuery(document).ready(function($) {
+	
+		
+
+});
+{% endjavascript %}

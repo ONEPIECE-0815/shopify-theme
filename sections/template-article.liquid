@@ -1,0 +1,119 @@
+<div {% unless settings.sidebar_toggle %}class="container"{% endunless %}>
+	<article class="article_item">
+		{% if article.image %}
+			<div class="flexible_block flexible_block__{{ section.settings.text_position }}">
+				{% if section.settings.img_size == 'master' %}
+					{%- assign article_img = article.image | img_url: 'master' -%}
+				{% else %}
+					{%- assign article_img = article.image | img_url: '1170x', crop: section.settings.img_alignment -%}
+				{% endif %}
+
+				{% if section.settings.text_position == 'normal' and section.settings.img_size == 'master' %}
+					<div class="layer_1">
+						<img src="{{ article_img }}" alt="{{ article_img.alt }}">
+					</div>
+				{% else %}
+					<div class="layer_1 img_wrapper__{{ section.settings.img_size }} img_align__{{ section.settings.img_alignment }}" style="background-image: url( {{ article_img }} );"></div>
+				{% endif %}
+
+				<div class="layer_2">
+					<div>
+						<h1>{{ article.title }}</h1>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<h1 class="page_heading">{{ article.title }}</h1>
+		{% endif %}
+
+		<p class="article_info">
+			<span>
+				<time class="article_time" datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M' }}">{{ article.published_at | date: '%A, %B %d, %Y' }}</time>
+			</span>
+
+			<span class="article_author">{{ article.author }}</span>
+
+			{% if blog.comments_enabled? %}
+				<span class="article_comments">{{ article.comments_count }} {{ 'blog.articles.comments' | t }}</span>
+			{% endif %}
+		</p>
+
+		<div class="rte article_content">
+			{{ article.content }}
+		</div>
+
+		{% if article.tags.size > 0 %}
+			<p class="article_tags">
+				{% for tag in article.tags %}
+					<a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+				{% endfor %}
+			</p>
+		{% endif %}
+	</article>
+</div>
+
+{% schema %}
+{
+	"name": "Article page",
+	"class": "section_template section_template__article",
+	"settings": [
+		{
+			"type": "select",
+			"id": "img_size",
+			"label": "Images size",
+			"options": [
+				{
+					"value": "small",
+					"label": "Small"
+				},
+				{
+					"value": "medium",
+					"label": "Medium"
+				},
+				{
+					"value": "large",
+					"label": "Large"
+				},
+				{
+					"value": "master",
+					"label": "Original"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "img_alignment",
+			"label": "Images alignment",
+			"options": [
+				{
+					"value": "top",
+					"label": "Top"
+				},
+				{
+					"value": "center",
+					"label": "Middle"
+				},
+				{
+					"value": "bottom",
+					"label": "Bottom"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "text_position",
+			"label": "Text position",
+			"options": [
+				{
+					"value": "normal",
+					"label": "Normal"
+				},
+				{
+					"value": "overlay",
+					"label": "Overlay"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,171 @@
+<div class="container">
+	{% if section.settings.title.size > 0 %}
+		<h2 class="section_heading">{{ section.settings.title | escape }}</h2>
+	{% endif %}
+
+	{% if section.blocks.size < 4 %}
+		<div class="row">
+			{% for block in section.blocks %}
+				<div class="col-sm-4">
+					<blockquote class="testimonials_item">
+						<i class="fa fa-quote-left testimonials_item__icon" aria-hidden="true"></i>
+
+						{% if block.settings.quote.size > 0 %}
+							<p class="testimonials_item__text">{{ block.settings.quote }}</p>
+						{% endif %}
+
+						{% if block.settings.author.size > 0 %}
+							<cite class="testimonials_item__author">{{ block.settings.author | escape }}</cite>
+						{% endif %}
+					</blockquote>
+				</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div class="testimonials_slider swiper-container" id="testimonials_{{ section.id }}">
+			<div class="swiper-wrapper">
+				{% for block in section.blocks %}
+					<div class="swiper-slide">
+						<blockquote class="testimonials_item">
+							<i class="fa fa-quote-left testimonials_item__icon" aria-hidden="true"></i>
+
+							{% if block.settings.quote.size > 0 %}
+								<p class="testimonials_item__text">{{ block.settings.quote }}</p>
+							{% endif %}
+
+							{% if block.settings.author.size > 0 %}
+								<cite class="testimonials_item__author">{{ block.settings.author | escape }}</cite>
+							{% endif %}
+						</blockquote>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div id="pagination_{{ section.id }}" class="swiper_pagination"></div>
+		</div>
+	{% endif %}
+</div>
+
+{% schema %}
+{
+	"name": "Testimonials",
+	"class": "section section_homepage section_testimonials",
+	"max_blocks": 9,
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Testimonials"
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"blocks": [
+		{
+			"type": "quote",
+			"name": "Quote",
+			"settings": [
+				{
+					"type": "textarea",
+					"id": "quote",
+					"label": "Quote Text",
+					"default": "Add customer reviews and testimonials to showcase your store’s happy customers."
+				},
+				{
+					"type": "text",
+					"id": "author",
+					"label": "Quote Author",
+					"default": "Author's name"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Testimonials",
+			"category": "Text",
+			"blocks": [
+				{
+					"type": "quote"
+				},
+				{
+					"type": "quote"
+				},
+				{
+					"type": "quote"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+
+{% javascript %}
+jQuery(document).ready(function($) {
+	$('.section_testimonials').each(function() {
+
+		var sectionId = $(this).attr('id').replace('shopify-section-', '');
+
+		var testimonialSliderTag = '#testimonials_' + sectionId;
+		var testimonialSliderPagination = '#pagination_' + sectionId;
+
+
+		var testimonialsLoad = function() {
+
+			if( $(testimonialSliderTag).length ) {
+
+				var testimonialSlider = new Swiper(testimonialSliderTag, {
+					slidesPerView: 3,
+					breakpoints: {
+						768: {
+							slidesPerView: 2
+						},
+						480: {
+							slidesPerView: 1
+						}
+					},
+					spaceBetween: 30,
+					pagination: testimonialSliderPagination,
+					paginationClickable: true,
+				});
+
+			};
+
+		};
+
+
+		// LOADING SLIDERS
+		testimonialsLoadTrigger = true;
+
+		$(document).on('shopify:section:load', '#shopify-section-' + sectionId, function() {
+			testimonialsLoad();
+			testimonialsLoadTrigger = false;
+		});
+
+		if ( testimonialsLoadTrigger = true ) {
+			testimonialsLoad();
+		};
+
+	});
+});
+{% endjavascript %}

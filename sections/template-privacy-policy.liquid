@@ -1,0 +1,68 @@
+<div class="container">
+	<h1 class="page_heading">{{ page_title }}</h1>
+
+	<div class="page_content">
+		{% for block in section.blocks %}
+			{% case block.type %}
+				{% when 'text-block' %}
+					<div class="page_content__block page_content__text">
+						{% if block.settings.title.size > 0 %}
+							<h2 class="block_title">{{ block.settings.title }}</h2>
+						{% endif %}
+
+						{% if block.settings.text.size > 0 %}
+							<div class="block_content rte">
+								{{ block.settings.text }}
+							</div>
+						{% endif %}
+					</div>
+
+			{% endcase %}
+		{% endfor %}
+		<p class="contact_email">
+			<a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+		</p>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Privacy policy",
+	"class": "section section_template section_template__privacy",
+	"max_blocks": 10,
+	"settings": [
+		{
+			"type": "header",
+			"content": "Privacy Policy"
+		},
+		{
+			"type": "text",
+			"id": "email",
+			"label": "Email address"
+		}
+	],
+
+	"blocks": [
+
+		// TEXT BLOCK /////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "text-block",
+			"name": "Text block",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Title",
+					"default": "Information"
+				},
+				{
+					"type": "richtext",
+					"id": "text",
+					"label": "Text",
+					"default": "<p>Welcome to our Privacy Policy page! When you use our store services, you trust us with your information.</p>"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

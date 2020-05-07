@@ -1,0 +1,154 @@
+{% case section.settings.img_size %}
+	{% when 'small'  %}{%- assign img_size = '570x320' -%}
+	{% when 'medium' %}{%- assign img_size = '570x570' -%}
+	{% when 'large'  %}{%- assign img_size = '570x760' -%}
+{% endcase %}
+
+<div class="container">
+	<div class="item_wrap {% case section.settings.layout %}{% when 'left' %}image_left{% when 'right' %}image_right{% endcase %}">
+		<div class="item_img">
+			{% if section.settings.image.size > 0 %}
+				<img src="{{ section.settings.image | img_url: img_size, crop: section.settings.img_alignment }}" alt="{{ section.settings.image.alt }}">
+			{% else %}
+				<div class="img_placeholder__wrap img_placeholder__{{ section.settings.img_size }}">
+					{{ 'image' | placeholder_svg_tag: 'img_placeholder' }}
+				</div>
+			{% endif %}	
+		</div>
+
+		<div class="item_txt">
+			{% if section.settings.title.size > 0 %}
+				<h3>{{ section.settings.title | escape }}</h3>
+			{% endif %}
+
+			{% if section.settings.text.size > 0 %}
+				<p>{{ section.settings.text | strip_html }}</p>
+			{% endif %}
+
+			{% if section.settings.button_label.size > 0 and section.settings.button_link.size > 0 %}
+				<a class="btn" href="{{ section.settings.button_link }}">
+					{{ section.settings.button_label }}
+				</a>
+			{% endif %}
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+{% schema %}
+{
+	"name": "Image with text",
+	"class": "section section_homepage section_image-with-text",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Image"
+		},
+		{
+			"type": "select",
+			"id": "layout",
+			"label": "Layout",
+			"default": "left",
+			"options": [
+				{
+					"value": "left",
+					"label": "Image on left"
+				},
+				{
+					"value": "right",
+					"label": "Image on right"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "img_size",
+			"label": "Image size",
+			"options": [
+				{
+					"value": "small",
+					"label": "Small (570x320)"
+				},
+				{
+					"value": "medium",
+					"label": "Medium (570x570)"
+				},
+				{
+					"value": "large",
+					"label": "Large (570x760)"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "img_alignment",
+			"label": "Image alignment",
+			"options": [
+				{
+					"value": "top",
+					"label": "Top"
+				},
+				{
+					"value": "center",
+					"label": "Middle"
+				},
+				{
+					"value": "bottom",
+					"label": "Bottom"
+				}
+			]
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Image with text"
+		},
+		{
+			"type": "textarea",
+			"id": "text",
+			"label": "Text",
+			"default": "Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review."
+		},
+		{
+			"type": "text",
+			"id": "button_label",
+			"label": "Button label"
+		},
+		{
+			"type": "url",
+			"id": "button_link",
+			"label": "Button link"
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"presets": [
+		{
+			"name": "Image with text",
+			"category": "Image"
+		}
+	]
+}
+{% endschema %}

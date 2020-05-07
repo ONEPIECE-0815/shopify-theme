@@ -1,0 +1,948 @@
+<div class="container {% if section.settings.no_padding %}no_padding{% endif %}"> 
+	{% if section.settings.section_title.size > 0 %}
+		<h2 class="section_heading">{{ section.settings.section_title | escape }}</h2>
+	{% endif %}
+
+	<div class="row">
+		{% for block in section.blocks %}
+			{% case block.type %}
+				{% when 'advantages' %}
+					{%- assign icon_truck = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 20 20"><path d="M19.794 13.421l-0.004-0.021c-0-0.001-0-0.002-0.001-0.003l-0.399-1.997c-0-0.001-0-0.002-0.001-0.003l-0.203-1.015c-0.155-0.775-0.896-1.383-1.686-1.383h-4c-0.175 0-0.343 0.031-0.5 0.086v-0.586c0-0.827-0.673-1.5-1.5-1.5h-10c-0.827 0-1.5 0.673-1.5 1.5v8c0 0.827 0.673 1.5 1.5 1.5h1.5c0 1.103 0.897 2 2 2s2-0.897 2-2h5.086c0.206 0.582 0.762 1 1.414 1h0.769c0.346 0.597 0.992 1 1.731 1s1.385-0.403 1.731-1h0.769c0.827 0 1.5-0.673 1.5-1.5v-2c0-0.579-0.092-1.511-0.206-2.079zM18.69 13h-2.69v-1h2.49l0.2 1zM5 19c-0.551 0-1-0.449-1-1s0.449-1 1-1 1 0.449 1 1-0.449 1-1 1zM6.731 17c-0.346-0.597-0.992-1-1.731-1s-1.385 0.403-1.731 1h-1.769c-0.276 0-0.5-0.224-0.5-0.5v-8c0-0.276 0.224-0.5 0.5-0.5h10c0.276 0 0.5 0.224 0.5 0.5v8.5h-5.269zM16 19c-0.551 0-1-0.449-1-1s0.449-1 1-1 1 0.449 1 1-0.449 1-1 1zM18.5 18h-0.5c0-1.103-0.897-2-2-2s-2 0.897-2 2h-0.5c-0.276 0-0.5-0.224-0.5-0.5v-7c0-0.276 0.224-0.5 0.5-0.5h4c0.314 0 0.644 0.27 0.706 0.579l0.084 0.421h-2.79c-0.276 0-0.5 0.224-0.5 0.5v2c0 0.276 0.224 0.5 0.5 0.5h3.378c0.045 0.313 0.082 0.675 0.103 1h-0.481c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5h0.5v1.5c0 0.276-0.224 0.5-0.5 0.5z"></path></svg>' -%}
+					{%- assign icon_wallet = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 20 20"><path d="M17.5 9h-0.5v-2.5c0-0.827-0.673-1.5-1.5-1.5h-2.5v-4.5c0-0.276-0.224-0.5-0.5-0.5h-10c-0.276 0-0.5 0.224-0.5 0.5v4.55c-1.14 0.232-2 1.242-2 2.45v11c0 0.827 0.673 1.5 1.5 1.5h16c0.827 0 1.5-0.673 1.5-1.5v-8c0-0.827-0.673-1.5-1.5-1.5zM3 1h9v6h-9v-6zM2 6.086v1.414c0 0.276 0.224 0.5 0.5 0.5h12c0.276 0 0.5-0.224 0.5-0.5s-0.224-0.5-0.5-0.5h-1.5v-1h2.5c0.276 0 0.5 0.224 0.5 0.5v2.5h-13.5c-0.827 0-1.5-0.673-1.5-1.5 0-0.652 0.418-1.208 1-1.414zM18 18.5c0 0.276-0.224 0.5-0.5 0.5h-16c-0.276 0-0.5-0.224-0.5-0.5v-9.001c0.418 0.315 0.938 0.501 1.5 0.501h15c0.276 0 0.5 0.224 0.5 0.5v8z"></path><path d="M10.5 3h-0.5v-0.5c0-0.276-0.224-0.5-0.5-0.5h-2c-0.276 0-0.5 0.224-0.5 0.5v1.5h-1v-1.5c0-0.276-0.224-0.5-0.5-0.5s-0.5 0.224-0.5 0.5v0.5h-0.5c-0.276 0-0.5 0.224-0.5 0.5s0.224 0.5 0.5 0.5h0.5v0.5c0 0.276 0.224 0.5 0.5 0.5h2c0.276 0 0.5-0.224 0.5-0.5v-1.5h1v1.5c0 0.276 0.224 0.5 0.5 0.5s0.5-0.224 0.5-0.5v-0.5h0.5c0.276 0 0.5-0.224 0.5-0.5s-0.224-0.5-0.5-0.5z"></path><path d="M16.5 18h-4c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5h4c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5z"></path></svg>' -%}
+					{%- assign icon_bubble-user = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 20 20"><path d="M0.5 19c-0.225 0-0.422-0.15-0.482-0.367s0.032-0.447 0.225-0.562c1.691-1.014 2.392-2.489 2.641-3.179-1.838-1.407-2.884-3.354-2.884-5.392 0-1.029 0.258-2.026 0.768-2.964 0.486-0.894 1.18-1.695 2.061-2.381 1.787-1.39 4.156-2.156 6.671-2.156s4.884 0.766 6.671 2.156c0.881 0.685 1.575 1.486 2.061 2.381 0.51 0.937 0.768 1.934 0.768 2.964s-0.258 2.026-0.768 2.964c-0.486 0.894-1.18 1.695-2.061 2.381-1.787 1.39-4.156 2.156-6.671 2.156-1.033 0-2.047-0.129-3.016-0.385-0.429 0.286-1.231 0.793-2.189 1.27-1.488 0.74-2.764 1.115-3.794 1.115zM9.5 3c-4.687 0-8.5 2.916-8.5 6.5 0 1.815 1.005 3.562 2.756 4.792 0.172 0.121 0.25 0.336 0.196 0.539-0.117 0.436-0.515 1.633-1.58 2.788 1.302-0.456 2.704-1.247 3.739-1.959 0.123-0.085 0.277-0.11 0.421-0.069 0.948 0.271 1.947 0.409 2.968 0.409 4.687 0 8.5-2.916 8.5-6.5s-3.813-6.5-8.5-6.5z"></path><path d="M12.999 12.465c-0.005-0.172-0.047-0.929-0.427-1.688-0.252-0.503-0.679-1.066-1.399-1.421 0.507-0.458 0.827-1.12 0.827-1.856 0-1.378-1.122-2.5-2.5-2.5s-2.5 1.122-2.5 2.5c0 0.736 0.32 1.398 0.827 1.856-0.72 0.355-1.148 0.917-1.399 1.421-0.423 0.846-0.428 1.688-0.428 1.724 0 0.276 0.224 0.5 0.5 0.5h6c0 0 0 0 0.001 0 0.276 0 0.5-0.224 0.5-0.5 0-0.012-0-0.023-0.001-0.035zM8 7.5c0-0.827 0.673-1.5 1.5-1.5s1.5 0.673 1.5 1.5-0.673 1.5-1.5 1.5c-0.827 0-1.5-0.673-1.5-1.5zM7.061 12c0.047-0.233 0.129-0.521 0.275-0.804 0.409-0.794 1.137-1.196 2.164-1.196s1.755 0.402 2.164 1.196c0.145 0.283 0.228 0.571 0.275 0.804h-4.877z"></path></svg>' -%}
+					{%- assign icon_telephone = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 20 20"><path d="M16 20c-1.771 0-3.655-0.502-5.6-1.492-1.793-0.913-3.564-2.22-5.122-3.78s-2.863-3.333-3.775-5.127c-0.988-1.946-1.49-3.83-1.49-5.601 0-1.148 1.070-2.257 1.529-2.68 0.661-0.609 1.701-1.32 2.457-1.32 0.376 0 0.816 0.246 1.387 0.774 0.425 0.394 0.904 0.928 1.383 1.544 0.289 0.372 1.73 2.271 1.73 3.182 0 0.747-0.845 1.267-1.739 1.816-0.346 0.212-0.703 0.432-0.961 0.639-0.276 0.221-0.325 0.338-0.333 0.364 0.949 2.366 3.85 5.267 6.215 6.215 0.021-0.007 0.138-0.053 0.363-0.333 0.207-0.258 0.427-0.616 0.639-0.961 0.55-0.894 1.069-1.739 1.816-1.739 0.911 0 2.81 1.441 3.182 1.73 0.616 0.479 1.15 0.958 1.544 1.383 0.528 0.57 0.774 1.011 0.774 1.387 0 0.756-0.711 1.799-1.319 2.463-0.424 0.462-1.533 1.537-2.681 1.537zM3.994 1c-0.268 0.005-0.989 0.333-1.773 1.055-0.744 0.686-1.207 1.431-1.207 1.945 0 6.729 8.264 15 14.986 15 0.513 0 1.258-0.465 1.944-1.213 0.723-0.788 1.051-1.512 1.056-1.781-0.032-0.19-0.558-0.929-1.997-2.037-1.237-0.952-2.24-1.463-2.498-1.469-0.018 0.005-0.13 0.048-0.357 0.336-0.197 0.251-0.408 0.594-0.613 0.926-0.56 0.911-1.089 1.772-1.858 1.772-0.124 0-0.246-0.024-0.363-0.071-2.625-1.050-5.729-4.154-6.779-6.779-0.126-0.315-0.146-0.809 0.474-1.371 0.33-0.299 0.786-0.579 1.228-0.851 0.332-0.204 0.676-0.415 0.926-0.613 0.288-0.227 0.331-0.339 0.336-0.357-0.007-0.258-0.517-1.261-1.469-2.498-1.108-1.439-1.847-1.964-2.037-1.997z"></path></svg>' -%}
+					{%- assign icon_gift = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 20 20">
+					<path d="M18.5 5h-3.001c0.315-0.418 0.501-0.938 0.501-1.5 0-1.378-1.122-2.5-2.5-2.5-1.39 0-2.556 1.101-3.127 1.758-0.346 0.397-0.644 0.823-0.873 1.235-0.229-0.412-0.527-0.837-0.873-1.235-0.571-0.656-1.737-1.758-3.127-1.758-1.378 0-2.5 1.122-2.5 2.5 0 0.562 0.187 1.082 0.501 1.5h-3.001c-0.276 0-0.5 0.224-0.5 0.5v3c0 0.276 0.224 0.5 0.5 0.5h0.5v9.5c0 0.827 0.673 1.5 1.5 1.5h14c0.827 0 1.5-0.673 1.5-1.5v-9.5h0.5c0.276 0 0.5-0.224 0.5-0.5v-3c0-0.276-0.224-0.5-0.5-0.5zM11.127 3.414c0.782-0.899 1.647-1.414 2.373-1.414 0.827 0 1.5 0.673 1.5 1.5s-0.673 1.5-1.5 1.5h-3.378c0.173-0.442 0.523-1.032 1.005-1.586zM11 19h-3v-13h3v13zM4 3.5c0-0.827 0.673-1.5 1.5-1.5 0.726 0 1.591 0.515 2.373 1.414 0.482 0.554 0.832 1.144 1.005 1.586h-3.378c-0.827 0-1.5-0.673-1.5-1.5zM1 6h6v2h-6v-2zM2 18.5v-9.5h5v10h-4.5c-0.276 0-0.5-0.224-0.5-0.5zM17 18.5c0 0.276-0.224 0.5-0.5 0.5h-4.5v-10h5v9.5zM18 8h-6v-2h6v2z" ></path></svg>' -%}
+					{%- assign icon_return = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 20 20">
+					<path d="M17.071 2.929c-1.889-1.889-4.4-2.929-7.071-2.929-3.094 0-5.975 1.425-7.853 3.807v-1.307c0-0.276-0.224-0.5-0.5-0.5s-0.5 0.224-0.5 0.5v2.972c0 0.229 0.155 0.428 0.377 0.485 0.097 0.025 0.195 0.019 0.284-0.011v0l1.353-0.461c0-0 0-0 0-0l1.5-0.511c0.261-0.089 0.401-0.373 0.312-0.634s-0.373-0.401-0.634-0.312l-1.49 0.508c1.688-2.208 4.32-3.534 7.151-3.534 4.963 0 9 4.037 9 9s-4.037 9-9 9c-3.316 0-6.354-1.815-7.928-4.737-0.131-0.243-0.434-0.334-0.677-0.203s-0.334 0.434-0.203 0.677c1.749 3.246 5.125 5.263 8.809 5.263 2.671 0 5.182-1.040 7.071-2.929s2.929-4.4 2.929-7.071c0-2.671-1.040-5.182-2.929-7.071z" ></path></svg>' -%}
+					
+					{% for i in (1..4) %}
+						{% capture icon_num %}advantages_icon{{ i }}{% endcapture %} 
+
+						{% case block.settings[icon_num] %}
+							{% when 'truck' %}
+								{%- assign icon_var = icon_truck -%}
+							{% when 'wallet' %}
+								{%- assign icon_var = icon_wallet -%}
+							{% when 'bubble-user' %}
+								{%- assign icon_var = icon_bubble-user -%}
+							{% when 'telephone' %}
+								{%- assign icon_var = icon_telephone -%}
+							{% when 'gift' %}
+								{%- assign icon_var = icon_gift -%}
+							{% when 'return' %}
+								{%- assign icon_var = icon_return -%}
+						{% endcase %}
+
+						{% if forloop.index == 1 %}
+							{%- assign item1_icon = icon_var -%}
+						{% endif %}
+						{% if forloop.index == 2 %}
+							{%- assign item2_icon = icon_var -%}
+						{% endif %}
+						{% if forloop.index == 3 %}
+							{%- assign item3_icon = icon_var -%}
+						{% endif %}
+						{% if forloop.index == 4 %}
+							{%- assign item4_icon = icon_var -%}
+						{% endif %}
+					{% endfor %}
+
+					{% case block.settings.block_view %}
+						{% when 'together' %}
+							<div class="col-sm-4 item__{{ block.type }}">
+								<div class="advantages_wrap">
+									<div class="advantages_item advantages_item_1 {{ block.settings.style_1 }}">
+										<span class="advantages_icon">{{ item1_icon }}</span>
+										<div class="advantages_text">{{ block.settings.advantages_text1 }}</div>
+									</div>
+									<div class="advantages_item advantages_item_2 {{ block.settings.style_2 }}">
+										<span class="advantages_icon">{{ item2_icon }}</span>
+										<div class="advantages_text">{{ block.settings.advantages_text2 }}</div>
+									</div>
+									<div class="advantages_item advantages_item_3 {{ block.settings.style_3 }}">
+										<span class="advantages_icon">{{ item3_icon }}</span>
+										<div class="advantages_text">{{ block.settings.advantages_text3 }}</div>
+									</div>
+									<div class="advantages_item advantages_item_4 {{ block.settings.style_4 }}">
+										<span class="advantages_icon">{{ item4_icon }}</span>
+										<div class="advantages_text">{{ block.settings.advantages_text4 }}</div>
+									</div>
+								</div>
+							</div>
+
+						{% when 'separately' %}
+							<div class="item__{{ block.type }}">
+								<div class="col-sm-3">
+									<div class="advantages_item advantages_item_1 {{ block.settings.style_1 }}">
+										<span class="advantages_icon">{{ item1_icon }}</span>
+										<div class="advantages_text">{{ block.settings.advantages_text1 }}</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="advantages_item advantages_item_2 {{ block.settings.style_2 }}">
+										<span class="advantages_icon">{{ item2_icon }}</span>
+										<div class="advantages_text">{{ block.settings.advantages_text2 }}</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="advantages_item advantages_item_3 {{ block.settings.style_3 }}">
+										<span class="advantages_icon">{{ item3_icon }}</span>
+										<div class="advantages_text">{{ block.settings.advantages_text3 }}</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="advantages_item advantages_item_4 {{ block.settings.style_4 }}">
+										<span class="advantages_icon">{{ item4_icon }}</span>
+										<div class="advantages_text">{{ block.settings.advantages_text4 }}</div>
+									</div>
+								</div>
+							</div>
+					{% endcase %}
+
+
+				{% when 'blog_posts' %}
+					<div class="col-sm-4 item__{{ block.type }}">
+
+						<h4>{{ block.settings.block_title }}</h4>
+
+						<div class="swiper-container blog_posts_carousel" id="blog_carousel_{{ forloop.index }}_{{ section.id }}">
+							<div class="advantages_wrap swiper-wrapper">
+								{%- assign block_blog = blogs[block.settings.block_blog] -%}
+
+								{% for article in block_blog.articles limit: 3 %}
+									<div class="blog_article swiper-slide">
+										{% if article.image %}
+											<div class="img_placeholder__wrap img_placeholder__{{ section.settings.img_size }}" style="background-image: url( {{ article.image.src | img_url: '370x308', crop: 'center' }} );"></div>
+										{% else %}
+											<div class="img_placeholder__wrap img_placeholder__{{ section.settings.img_size }} img_placeholder__empty"></div>
+										{% endif %}
+
+										<p class="article_date"><time class="article_day" datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M' }}">{{ article.published_at | date: '%d' }}<span>{{ article.published_at | date: '%B' }}</span></time></p>
+
+										<p class="article_title"><a href="{{ article.url }}">{{ article.title | truncatewords: 11 }}</a></p>
+									</div>
+
+								{% endfor %}
+							</div>
+						</div>
+
+						<div id="blog_carousel_prev_{{ forloop.index }}_{{ section.id }}" class="swiper_btn swiper_btn__prev"></div>
+						<div id="blog_carousel_next_{{ forloop.index }}_{{ section.id }}" class="swiper_btn swiper_btn__next"></div>
+					</div>
+
+				{% when 'logo_grid' %}
+					<div class="col-sm-4 item__{{ block.type }}">
+						<h4>{{ block.settings.block_title }}</h4>
+
+						<div class="logo_wrap">
+							{% for i in (1..9) %}
+								{% capture logo_image %}logo_image{{ i }}{% endcapture %} 
+								{% capture logo_url %}logo_url{{ i }}{% endcapture %} 
+
+								<div class="logo_item">
+									<a href="{{ block.settings[logo_url] }}">
+										<div class="img_placeholder__wrap" style="background-image: url( {{ block.settings[logo_image] | img_url: '110x80', crop: 'center' }} );"></div>
+									</a>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+
+				{% when 'newsletter' %}
+					{% if block.settings.block_view == 'together' %}
+						{%- assign together = true -%}
+					{% else %}
+						{%- assign together = false -%}
+					{% endif %}
+
+					<div class="{% if together %}col-sm-4{% else %}separately{% endif %} item__{{ block.type }}">
+						{% if together == false %}
+							<div class="col-xs-4">
+								<h4>{{ block.settings.block_title }}</h4>
+
+								{% if block.settings.newsletter_text.size > 0 %}
+									<p class="form_text">{{ block.settings.newsletter_text }}</p>
+								{% else %}	
+									<p class="form_text">{{ 'layout.footer.newsletter_tagline' | t }}</p>
+								{% endif %}
+							</div>
+						{% else %}
+							<h4>{{ block.settings.block_title }}</h4>
+						{% endif %}
+						
+						{% if together %}
+							<div class="newsletter_wrap">
+						{% else %}
+							<div class="col-xs-4 newsletter_wrap">
+						{% endif %}
+							{% case settings.newsletter_form_type %}
+								{% when 'newsletter_shopify' %}
+										{% capture newsletterForm %}
+											{% form 'customer', class: 'newsletter_form' %}
+												{{ form.errors | default_errors }}
+
+												<p class="alert alert-success">{{ 'layout.footer.newsletter_success' | t }}</p>
+												
+												{% if together %}
+													{% if block.settings.newsletter_text.size > 0 %}
+														<p class="form_text">{{ block.settings.newsletter_text }}</p>
+													{% else %}	
+														<p class="form_text">{{ 'layout.footer.newsletter_tagline' | t }}</p>
+													{% endif %}
+												{% endif %}
+
+												<input type="hidden" name="contact[tags]" value="Newsletter subscriber">
+												<div class="form_wrapper">
+													<input type="email" name="contact[email]" class="input-group__field newsletter__input" placeholder="Enter your email">
+													<button class="btn btn_alt" type="submit">{{ 'layout.footer.subscribe_button' | t }}</button>
+												</div>
+												
+											{% endform %}
+										{% endcapture %}
+
+										{% assign newsletterForm = newsletterForm | replace: "'", "&lsquo;" | replace: 'id="contact_form"', 'id="newsletter_form"' | strip_newlines %}
+
+								{% when 'newsletter_mailchimp' %}
+									{% capture newsletterForm %}
+										{% if together %}
+											{% if block.settings.newsletter_text.size > 0 %}
+												<p class="form_text">{{ block.settings.newsletter_text }}</p>
+											{% else %}	
+												<p class="form_text">{{ 'layout.footer.newsletter_tagline' | t }}</p>
+											{% endif %}
+										{% endif %}
+
+										<div class="newsletter_form__mailchimp">
+											<form action="{{ settings.newsletter_mailchimp_url }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="newsletter_form">
+												<input required type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Enter your email">
+												<button class="btn btn_alt" type="submit" name="subscribe" id="mc-embedded-subscribe">{{ 'layout.footer.subscribe_button' | t }}</button>
+											</form>
+										</div>
+									{% endcapture %}
+							{% endcase %}
+
+							{{ newsletterForm }}
+						</div>
+						
+						{% if together %}
+							<div class="social_wrap">
+						{% else %}
+							<div class="col-xs-4 social_wrap">
+						{% endif %}
+						
+							<h4>{{ block.settings.social_title }}</h4>
+							<ul class="{{ block.settings.icon_style }}">
+								{% if block.settings.social_fb.size > 0 %}
+									<li><a href="{{ block.settings.social_fb }}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+								{% endif %}
+
+								{% if block.settings.social_tw.size > 0 %}
+									<li><a href="{{ block.settings.social_tw }}"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								{% endif %}
+
+								{% if block.settings.social_inst.size > 0 %}
+									<li><a href="{{ block.settings.social_inst }}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+								{% endif %}
+
+								{% if block.settings.social_pin.size > 0 %}
+									<li><a href="{{ block.settings.social_pin }}"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+								{% endif %}
+
+								{% if block.settings.social_gplus.size > 0 %}
+									<li><a href="{{ block.settings.social_gplus }}"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+								{% endif %}
+
+								{% if block.settings.social_yt.size > 0 %}
+									<li><a href="{{ block.settings.social_yt }}"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+
+				{% when 'facebook' %}
+					<div class="col-sm-4 item__{{ block.type }}">
+						<div id="fb-root"></div>
+
+						<script>
+							(function(d, s, id) {
+								var js, fjs = d.getElementsByTagName(s)[0];
+								if (d.getElementById(id)) return;
+								js = d.createElement(s); js.id = id;
+								js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=853490611342442";
+								fjs.parentNode.insertBefore(js, fjs);
+							}(document, 'script', 'facebook-jssdk'));
+
+							window.onresize = function() {
+								FB.XFBML.parse();
+							};
+						</script>
+
+						<div class="fb-page" data-href="{{ block.settings.fb_block }}" data-tabs="timeline" data-border-color="#ff0000" data-width="370" data-height="330" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="{{ block.settings.fb_block }}" class="fb-xfbml-parse-ignore"><a href="{{ block.settings.fb_block }}">{{ block.settings.fb_block | replace: '/', '' | replace: 'https:', '' | replace: 'www.facebook.com', '' }}</a></blockquote></div>
+					</div>
+
+				{% when 'twitter' %}
+					<div class="col-sm-4 item__{{ block.type }}">
+						<a class="twitter-timeline" href="{{ block.settings.tw_block }}" data-width="370" data-height="330" data-border-color="{{ settings.border_color }}" data-chrome="nofooter"></a>
+					</div>
+
+					<script src="//platform.twitter.com/widgets.js" charset="utf-8" async></script>
+
+			{% endcase %}
+		{% endfor %}
+	</div>
+</div>
+
+<style>
+	#shopify-section-{{ section.id }}.section_communication {background-color: {{ section.settings.section_bg_color }};}
+</style>
+
+{% schema %}
+{
+	"name": "Communication",
+	"class": "section section_homepage section_communication",
+	"max_blocks": 3,
+	"settings": [
+		{
+			"type": "text",
+			"id": "section_title",
+			"label": "Title",
+			"default": "Communication"
+		},
+		{
+			"type": "color",
+			"id": "section_bg_color",
+			"label": "Color",
+			"default": "transparent"
+		},
+		{
+			"type": "checkbox",
+			"id": "no_padding",
+			"label": "Without padding"
+		},
+		{
+            "type": "header",
+            "content": {
+					"de": "BENÖTIGEN SIE WEITERE HILFE",
+                    "en": "NEED MORE HELP?",
+                    "es": "NECESITAS MÁS AYUDA?",
+                    "fr": "BESOIN D'AIDE?",
+                    "it": "SERVE ANCORA AIUTO?",
+                    "ru": "НУЖНА ДОПОЛНИТЕЛЬНАЯ ПОМОЩЬ?",
+                    "pt-BR": "NEED MORE HELP?"
+				},
+            "info": {
+                "de": "[Bei weiteren Fragen oder Problemen sowie bei der Anpassung der Vorlage wenden Sie sich bitte an shopify@zemez.io](mailto:shopify@zemez.io)",
+                "en": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)",
+                "es": "[En caso de preguntas o problemas adicionales, así como solicitudes para personalizar la plantilla, comuníquese con shopify@zemez.io](mailto:shopify@zemez.io)",
+                "fr": "[En cas de questions ou de problèmes supplémentaires, ainsi que de demandes de personnalisation du modèle, veuillez contacter shopify@zemez.io](mailto:shopify@zemez.io)",
+                "it": "[In caso di ulteriori domande o problemi, nonché richieste di personalizzazione del modello, si prega di contattare shopify@zemez.io](mailto:shopify@zemez.io)",
+                "ru": "[В случае возникновения дополнительных вопросов или проблем, а также запросов на настройку шаблона, пожалуйста, свяжитесь с нами shopify@zemez.io](mailto:shopify@zemez.io)",
+                "pt-BR": "[In case of additional questions or problems, as well as requests to customize the template, please contact shopify@zemez.io](mailto:shopify@zemez.io)"
+                }
+        }
+	],
+	"blocks": [
+		// ADVANTAGES ///////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "advantages",
+			"name": "Advantages",
+			"settings": [
+				{
+					"type": "radio",
+					"id": "block_view",
+					"label": "Advantages view",
+					"options": [
+						{ 
+							"value": "together", 
+							"label": "Common" 
+						},
+						{ 
+							"value": "separately", 
+							"label": "Separately" 
+						}
+					],
+					"default": "together",
+					"info": "Select advantages view"
+				},
+				{
+					"type": "select",
+					"id": "advantages_icon1",
+					"label": "Advantages icon",
+					"options": [
+						{
+							"value": "truck",
+							"label": "Truck"
+						},
+						{
+							"value": "wallet",
+							"label": "Wallet"
+						},
+						{
+							"value": "bubble-user",
+							"label": "Bubble user"
+						},
+						{
+							"value": "telephone",
+							"label": "Telephone"
+						},
+						{
+							"value": "gift",
+							"label": "Gift"
+						},
+						{
+							"value": "return",
+							"label": "Return"
+						}
+					]
+				},
+				{
+					"type": "richtext",
+					"id": "advantages_text1",
+					"label": "Advantages text"
+				},
+				{
+					"type": "select",
+					"id": "style_1",
+					"label": "Advantages 1 style",
+					"options": [
+						{
+							"value": "normal",
+							"label": "Normal"
+						},
+						{
+							"value": "inverted",
+							"label": "Inverted"
+						},
+						{
+							"value": "transparent",
+							"label": "Transparent"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "advantages_icon2",
+					"label": "Advantages icon",
+					"options": [
+						{
+							"value": "truck",
+							"label": "Truck"
+						},
+						{
+							"value": "wallet",
+							"label": "Wallet"
+						},
+						{
+							"value": "bubble-user",
+							"label": "Bubble user"
+						},
+						{
+							"value": "telephone",
+							"label": "Telephone"
+						},
+						{
+							"value": "gift",
+							"label": "Gift"
+						},
+						{
+							"value": "return",
+							"label": "Return"
+						}
+					]
+				},
+				{
+					"type": "richtext",
+					"id": "advantages_text2",
+					"label": "Advantages text"
+				},
+				{
+					"type": "select",
+					"id": "style_2",
+					"label": "Advantages 2 style",
+					"options": [
+						{
+							"value": "normal",
+							"label": "Normal"
+						},
+						{
+							"value": "inverted",
+							"label": "Inverted"
+						},
+						{
+							"value": "transparent",
+							"label": "Transparent"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "advantages_icon3",
+					"label": "Advantages icon",
+					"options": [
+						{
+							"value": "truck",
+							"label": "Truck"
+						},
+						{
+							"value": "wallet",
+							"label": "Wallet"
+						},
+						{
+							"value": "bubble-user",
+							"label": "Bubble user"
+						},
+						{
+							"value": "telephone",
+							"label": "Telephone"
+						},
+						{
+							"value": "gift",
+							"label": "Gift"
+						},
+						{
+							"value": "return",
+							"label": "Return"
+						}
+					]
+				},
+				{
+					"type": "richtext",
+					"id": "advantages_text3",
+					"label": "Advantages text"
+				},
+				{
+					"type": "select",
+					"id": "style_3",
+					"label": "Advantages 3 style",
+					"options": [
+						{
+							"value": "normal",
+							"label": "Normal"
+						},
+						{
+							"value": "inverted",
+							"label": "Inverted"
+						},
+						{
+							"value": "transparent",
+							"label": "Transparent"
+						}
+					]
+				},
+				{
+					"type": "select",
+					"id": "advantages_icon4",
+					"label": "Advantages icon",
+					"options": [
+						{
+							"value": "truck",
+							"label": "Truck"
+						},
+						{
+							"value": "wallet",
+							"label": "Wallet"
+						},
+						{
+							"value": "bubble-user",
+							"label": "Bubble user"
+						},
+						{
+							"value": "telephone",
+							"label": "Telephone"
+						},
+						{
+							"value": "gift",
+							"label": "Gift"
+						},
+						{
+							"value": "return",
+							"label": "Return"
+						}
+					]
+				},
+				{
+					"type": "richtext",
+					"id": "advantages_text4",
+					"label": "Advantages text"
+				},
+				{
+					"type": "select",
+					"id": "style_4",
+					"label": "Advantages 4 style",
+					"options": [
+						{
+							"value": "normal",
+							"label": "Normal"
+						},
+						{
+							"value": "inverted",
+							"label": "Inverted"
+						},
+						{
+							"value": "transparent",
+							"label": "Transparent"
+						}
+					]
+				}
+			]
+		},
+
+		// BLOG POST CAROUSEL ////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "blog_posts",
+			"name": "Blog posts carousel",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "blog",
+					"id": "block_blog",
+					"label": "Blog"
+				},
+				{
+					"type": "text",
+					"id": "block_title",
+					"label": "Block title"
+				}
+			]
+		},
+
+		// FACEBOOK BLOCK /////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "facebook",
+			"name": "Facebook block",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "paragraph",
+					"content": "Warning! To avoid errors, please use this block only once."
+				},
+				{
+					"type": "text",
+					"id": "fb_block",
+					"label": "Enter your Facebook URL"
+				}
+			]
+		},
+
+		// TWITTER BLOCK //////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "twitter",
+			"name": "Twitter block",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "paragraph",
+					"content": "Warning! To avoid errors, please use this block only once."
+				},
+				{
+					"type": "text",
+					"id": "tw_block",
+					"label": "Enter your Twitter URL"
+				}
+			]
+		},
+
+		// NEWSLETTER ///////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "newsletter",
+			"name": "Newsletter",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "paragraph",
+					"content": "Newsletter"
+				},
+				{
+					"type": "radio",
+					"id": "block_view",
+					"label": "Newsletter view",
+					"options": [
+						{ 
+							"value": "together", 
+							"label": "Together" 
+						},
+						{ 
+							"value": "separately", 
+							"label": "Separately" 
+						}
+					],
+					"default": "together"
+				},
+				{
+					"type": "text",
+					"id": "block_title",
+					"label": "Block title",
+					"default": "Newsletter"
+				},
+				{
+					"type": "text",
+					"id": "newsletter_text",
+					"label": "Newsletter text"
+				},
+				{
+					"type": "paragraph",
+					"content": "Social"
+				},
+				{
+					"type": "select",
+					"id": "icon_style",
+					"label": "Icon style",
+					"default": "style_1",
+					"options": [
+						{
+							"value": "style_1",
+							"label": "Style 1"
+						},
+						{
+							"value": "style_2",
+							"label": "Style 2"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"id": "social_title",
+					"label": "Social title",
+					"default": "Follow Us"
+				},
+				{
+					"type": "text",
+					"id": "social_fb",
+					"label": "Facebook"
+				},
+				{
+					"type": "text",
+					"id": "social_tw",
+					"label": "Twitter"
+				},
+				{
+					"type": "text",
+					"id": "social_inst",
+					"label": "Instagram"
+				},
+				{
+					"type": "text",
+					"id": "social_pin",
+					"label": "Pinterest"
+				},
+				{
+					"type": "text",
+					"id": "social_gplus",
+					"label": "Google+"
+				},
+				{
+					"type": "text",
+					"id": "social_yt",
+					"label": "Youtube"
+				}
+			]
+		},
+
+		// LOGO GRID ///////////////////////////////////////////////////////////////////////////////////////////
+		{
+			"type": "logo_grid",
+			"name": "Logo grid",
+			"settings": [
+				{
+					"type": "text",
+					"id": "block_title",
+					"label": "Block title"
+				},
+				{
+					"type": "paragraph",
+					"content": "Logo #1"
+				},
+				{
+					"type": "image_picker",
+					"id": "logo_image1",
+					"label": "logo image",
+					"info": "Image size 110x800px."
+				},
+				{
+					"type": "url",
+					"id": "logo_url1",
+					"label": "Logo link"
+				},
+				{
+					"type": "paragraph",
+					"content": "Logo #2"
+				},
+				{
+					"type": "image_picker",
+					"id": "logo_image2",
+					"label": "logo image",
+					"info": "Image size 110x800px."
+				},
+				{
+					"type": "url",
+					"id": "logo_url2",
+					"label": "Logo link"
+				},
+				{
+					"type": "paragraph",
+					"content": "Logo #3"
+				},
+				{
+					"type": "image_picker",
+					"id": "logo_image3",
+					"label": "logo image",
+					"info": "Image size 110x800px."
+				},
+				{
+					"type": "url",
+					"id": "logo_url3",
+					"label": "Logo link"
+				},
+				{
+					"type": "paragraph",
+					"content": "Logo #4"
+				},
+				{
+					"type": "image_picker",
+					"id": "logo_image4",
+					"label": "logo image",
+					"info": "Image size 110x800px."
+				},
+				{
+					"type": "url",
+					"id": "logo_url4",
+					"label": "Logo link"
+				},
+				{
+					"type": "paragraph",
+					"content": "Logo #5"
+				},
+				{
+					"type": "image_picker",
+					"id": "logo_image5",
+					"label": "logo image",
+					"info": "Image size 110x800px."
+				},
+				{
+					"type": "url",
+					"id": "logo_url5",
+					"label": "Logo link"
+				},
+				{
+					"type": "paragraph",
+					"content": "Logo #6"
+				},
+				{
+					"type": "image_picker",
+					"id": "logo_image6",
+					"label": "logo image",
+					"info": "Image size 110x800px."
+				},
+				{
+					"type": "url",
+					"id": "logo_url6",
+					"label": "Logo link"
+				},
+				{
+					"type": "paragraph",
+					"content": "Logo #7"
+				},
+				{
+					"type": "image_picker",
+					"id": "logo_image7",
+					"label": "logo image",
+					"info": "Image size 110x800px."
+				},
+				{
+					"type": "url",
+					"id": "logo_url7",
+					"label": "Logo link"
+				},
+				{
+					"type": "paragraph",
+					"content": "Logo #8"
+				},
+				{
+					"type": "image_picker",
+					"id": "logo_image8",
+					"label": "logo image",
+					"info": "Image size 110x800px."
+				},
+				{
+					"type": "url",
+					"id": "logo_url8",
+					"label": "Logo link"
+				},
+				{
+					"type": "paragraph",
+					"content": "Logo #9"
+				},
+				{
+					"type": "image_picker",
+					"id": "logo_image9",
+					"label": "logo image",
+					"info": "Image size 110x800px."
+				},
+				{
+					"type": "url",
+					"id": "logo_url9",
+					"label": "Logo link"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Communication",
+			"category": "Store information"
+		}
+	]
+}
+{% endschema %}
+
+{% javascript %}
+jQuery(document).ready(function($) { 
+
+	// BLOG POST CAROUSEL
+	$('.blog_posts_carousel').each(function(i) {
+
+		var swiperId = '#' + $(this).attr('id');
+		var swiperVar = $(this).attr('id');
+		var swiperPrev = '#blog_carousel_prev_' + swiperVar.replace('blog_carousel_', '');
+		var swiperNext = '#blog_carousel_next_' + swiperVar.replace('blog_carousel_', '');
+		
+
+		var swiperVar = new Swiper( swiperId, {
+			effect: 'slide',
+			loop: true,
+
+			prevButton: swiperPrev,
+			nextButton: swiperNext,
+
+		});
+
+		$(window).on('load', function() {
+			swiperVar.onResize(); // updating swiper after loading
+		});
+
+	});
+
+
+
+	// NEWSLETTER FORM
+	$('.newsletter_form').each(function (){      
+		$(this).on('submit', function(e){
+			var formCookie = $(this).attr('class');
+			$.cookie('formSended', formCookie);
+		});
+	});
+	
+	if( document.location.href.indexOf('?customer_posted=true') > 0 && $.cookie('formSended') == 'newsletter_form') {
+		$('.section_communication .newsletter_form .form_wrapper').hide();
+		$('.section_communication .newsletter_form .form_text').hide();
+		$('.section_communication .newsletter_form .alert-success').show();
+	}
+
+	$('.newsletter_form').formValidation();
+
+
+
+
+});
+{% endjavascript %}

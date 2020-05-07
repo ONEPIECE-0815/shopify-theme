@@ -1,0 +1,7 @@
+.header_search input::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.header_search input:focus {
+  border-color: #fff !important;
+}
